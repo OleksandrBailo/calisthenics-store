@@ -84,32 +84,39 @@ let tovars = [
 if (localStorage.getItem('products') == undefined)
     localStorage.setItem('products', JSON.stringify(tovars));
 else
-tovars = JSON.parse(localStorage.getItem('products'));
+    tovars = JSON.parse(localStorage.getItem('products'));
 
 
-showProducts(tovars);
-function showProducts(whatToShow) {
+
+showProductsAdmin(tovars);
+function showProductsAdmin(whatToShow) {
     let products = document.querySelector('.products');
+    tovars = JSON.parse(localStorage.getItem('products'));
+    products.innerHTML = "";
     let countItemsDisplay = document.querySelector('.items-count');
     let CountItems = 0;
     whatToShow.forEach(tovar => {
         CountItems += 1;
-        let product = document.createElement('div');
+        let product = document.createElement('tr');
         product.classList.add('product')
         products.appendChild(product);
         product.innerHTML = `
-                <div class="img"><img src=${tovar.img} alt=""></div>
-                <div class="addToBag"><img src="/imgs/Add to Bag.png" alt=""></div>
-                <div class="nameProduct">${tovar.nazva}</div>
-                <div class="countProduct">Amount: ${tovar.count}</div>
-                <div class="priceProduct">$${tovar.prise}</div>
+            <td>${tovar.category}</td>
+            <td class="img"><img src=${tovar.img}></td>
+            <td class="nameProduct">${tovar.nazva}</td>
+            <td class="priceProduct">$${tovar.prise}</td>
+            <td class="countProduct">${tovar.count}</td>
+            <td class="action-buttons">
+                <input class="edit" type="button" value="Редагувати">
+                <input class="delete" type="button" value="Видалити">
+            </td>
         `
     });
     countItemsDisplay.textContent = `${CountItems} Items`
 }
 
-let searchInput = document.getElementById('searchInput');
 
+let searchInput = document.getElementById('searchInput');
 // Налаштування Fuse.js
 let options = {
     keys: ['nazva'], // Поле, за яким буде виконуватись пошук
@@ -141,12 +148,12 @@ searchInput.addEventListener('input', () => {
         // Оновлення відображення
         let products = document.querySelector('.products');
         products.innerHTML = '';
-        showProducts(filteredTovars);
+        showProductsAdmin(filteredTovars);
     }
     else {
         let products = document.querySelector('.products');
         products.innerHTML = '';
-        showProducts(tovars);
+        showProductsAdmin(tovars);
     }
 });
 
@@ -246,7 +253,7 @@ logo.addEventListener("click", () => {
     // let products = document.querySelector('.products');
     // products.innerHTML = '';
     // showProducts(tovars);
-    location.reload()
+    window.location.href = '/index.html';
 });
 
 navItems.forEach((item) => {
@@ -258,7 +265,70 @@ navItems.forEach((item) => {
 
         let products = document.querySelector('.products');
         products.innerHTML = '';
-        showProducts(filteredTovars);
+        showProductsAdmin(filteredTovars);
     });
+});
+
+
+const addButton = document.getElementById("addButton");
+const modal = document.getElementById("modal");
+const closeButton = document.getElementById("closeButton");
+const form = document.querySelector('form');
+
+addButton.addEventListener("click", () => {
+    modal.style.display = "flex";
+});
+
+closeButton.addEventListener("click", () => {
+    modal.style.display = "none";
+});
+
+// Закриття модального вікна при кліку поза ним
+window.addEventListener("click", (event) => {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+});
+
+// function generateRandomString(length) {
+//     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+[]{}|;:,.<>?';
+//     let result = '';
+//     for (let i = 0; i < length; i++) {
+//         const randomIndex = Math.floor(Math.random() * characters.length);
+//         result += characters[randomIndex];
+//     }
+//     return result;
+// }
+
+// Додавання нового товару
+form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const category = form['category'].value;
+    const img = form['img'].value;
+    const nazva = form['nazva'].value;
+    const prise = form['prise'].value;
+    const count = form['count'].value;
+
+    const newProduct = {
+        id: 0,
+        img: img,
+        nazva: nazva,
+        category: category,
+        count: count,
+        prise: prise
+    }
+
+    // Генерація унікального ключа для нового товару
+    // const uniqueKey = generateRandomString(20);
+    // localStorage.setItem(uniqueKey, JSON.stringify(newProduct));
+
+    tovars.push(newProduct);
+    localStorage.setItem('products', JSON.stringify(tovars));
+    showProductsAdmin(tovars);
+
+    addForm.reset();
+
+    modal.style.display = "none";
 });
 

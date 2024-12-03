@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>adminPanel_Lab_6-7</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo"><img src="/imgs/LOGOmain-removebg-preview.png" alt=""></div>
+        <nav class="navHeader">
+            <div class="navItem">Men</div>
+            <div class="navItem">Women</div>
+            <div class="navItem">Equipment</div>
+            <div class="navItem">Accessories</div>
+        </nav>
+        <div class="searchAndIcons">
+            <div class="searchBox">
+                <input id="searchInput" type="text" placeholder="Search">
+                <div class="icon Search"><img src="/imgs/Search icon.png" alt="searchIcon"></div>
+            </div>
+            <div class="icon"><img src="/imgs/Profile icon.png" alt="profileIcon"></div>
+            <!-- <div class="icon"><img src="/imgs/Folowed icon.png" alt="folowedIcon"></div> -->
+            <div class="icon"><img src="/imgs/Bag icon.png" alt="BagIcon"></div>
+        </div>
+    </header>
+    <main>
+
+        <div class="addButtonBoxAndSort">
+            <input class="addButton" type="button" value="Додати" id="addButton">
+
+            <div class="sortBlockAboveProducts">
+                <div class="sort-container">
+                    <span class="items-count">0 Items</span>
+                    <div class="dropdown">
+                        <button class="dropdown-button">
+                            <span id="selected-option">Choose</span>
+                            <div class="arrow"><img id="arrowImg" src="/imgs/arrows-down.png" alt=""></div>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <!-- <li class="dropdown-item">Now Trending</li>
+                    <li class="dropdown-item">Best Sellers</li> -->
+                            <li class="dropdown-item">Price (Low - High)</li>
+                            <li class="dropdown-item">Price (High - Low)</li>
+                            <li class="dropdown-item">Top Rated</li>
+                            <!-- <li class="dropdown-item">Newest</li> -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="modal">
+            <div class="modal-content">
+                <span class="close-button" id="closeButton">x</span>
+                <h2>Додати новий товар</h2>
+                <form id="addForm">
+                    <div class="form-group">
+                        <label for="category">Категорія:</label>
+                        <input type="text" name="category" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="img">Картинка (URL):</label>
+                        <input type="text" name="img" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nazva">Ім'я:</label>
+                        <input type="text" name="nazva" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="prise">Ціна:</label>
+                        <input type="number" name="prise" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="count">Кількість:</label>
+                        <input type="number" name="count" required>
+                    </div>
+                    <input type="submit" value="Додати" class="submitButton">
+                </form>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Категорія</th>
+                    <th>Картинка</th>
+                    <th>Ім'я</th>
+                    <th>Ціна</th>
+                    <th>Кількість</th>
+                    <th>Дія</th>
+                </tr>
+            </thead>
+            <tbody class="products">
+            </tbody>
+        </table>
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
