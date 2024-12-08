@@ -1,4 +1,5 @@
 let tovar1 = {
+    id: "0",
     img: "/imgs/product-shot-wooden-parallettes-extended-2_91945174-2e6b-43e3-b101-1cf692ed68c2.webp",
     nazva: "Wooden Parallettes",
     category: "Equipment",
@@ -6,6 +7,7 @@ let tovar1 = {
     prise: 65
 }
 let tovar2 = {
+    id: "0",
     img: "/imgs/premium-parallettes-max-product-photo.webp",
     nazva: "Premium Parallettes Max",
     category: "Equipment",
@@ -17,6 +19,7 @@ let tovars = [
     tovar1,
     tovar2,
     {
+        id: "0",
         img: "/imgs/gornation-metal-parallettes-1.webp",
         nazva: "Metal Parallettes",
         category: "Equipment",
@@ -24,6 +27,7 @@ let tovars = [
         prise: 109
     },
     {
+        id: "0",
         img: "/imgs/calisthenics-mesh-shirt-black-front-view.webp",
         nazva: "Mesh Shirt Men",
         category: "Men",
@@ -31,6 +35,7 @@ let tovars = [
         prise: 33
     },
     {
+        id: "0",
         img: "/imgs/shorts-taupe-front_53c4f31f-6a30-40c8-b235-d0823f30e7b4.webp",
         nazva: "Rib Shorts Women",
         category: "Women",
@@ -38,6 +43,7 @@ let tovars = [
         prise: 38
     },
     {
+        id: "0",
         img: "/imgs/20kg-weight-vest-gornation-side-view_f594debd-77a0-4c6a-9266-132f70b26482.jpg",
         nazva: "Elite Weight Vest 20kg",
         category: "Equipment",
@@ -45,6 +51,7 @@ let tovars = [
         prise: 109
     },
     {
+        id: "0",
         img: "/imgs/jump-rope-gornation-1.webp",
         nazva: "Jump Rope",
         category: "Accessories",
@@ -52,6 +59,7 @@ let tovars = [
         prise: 22
     },
     {
+        id: "0",
         img: "/imgs/gornation-liquid-chalk-200ml.webp",
         nazva: "Premium Liquid Chalk",
         category: "Accessories",
@@ -59,6 +67,7 @@ let tovars = [
         prise: 17
     },
     {
+        id: "0",
         img: "/imgs/Performance-Wrist-Wraps-GORNATION-34941417-34941499-34941478.webp",
         nazva: "Performance Wrist Wraps",
         category: "Accessories",
@@ -66,6 +75,7 @@ let tovars = [
         prise: 21
     },
     {
+        id: "0",
         img: "/imgs/baselayer-white-front-dynamic.webp",
         nazva: "Performance Baselayer Men",
         category: "Men",
@@ -73,6 +83,7 @@ let tovars = [
         prise: 31
     },
     {
+        id: "0",
         img: "/imgs/bra-white-front.webp",
         nazva: "Rib Sports Bra Women",
         category: "Women",
@@ -80,6 +91,10 @@ let tovars = [
         prise: 44
     }
 ]
+
+tovars.forEach(tovar => {
+    tovar.id = generateRandomString(20);
+});
 
 if (localStorage.getItem('products') == undefined)
     localStorage.setItem('products', JSON.stringify(tovars));
@@ -101,6 +116,7 @@ function showProductsAdmin(whatToShow) {
         product.classList.add('product')
         products.appendChild(product);
         product.innerHTML = `
+            <td>${tovar.id}</td>
             <td>${tovar.category}</td>
             <td class="img"><img src=${tovar.img}></td>
             <td class="nameProduct">${tovar.nazva}</td>
@@ -111,6 +127,20 @@ function showProductsAdmin(whatToShow) {
                 <input class="delete" type="button" value="Видалити">
             </td>
         `
+        let btnDelete = product.querySelector('.delete');
+        btnDelete.addEventListener('click', () => {
+            let index = tovars.findIndex(item => item.id == tovar.id);
+            if (index !== -1) {
+                tovars.splice(index, 1);
+                localStorage.setItem('products', JSON.stringify(tovars));
+                showProductsAdmin(tovars);
+            }
+        });
+
+        let btnEdit = product.querySelector('.edit');
+        btnEdit.addEventListener('click', () => {
+
+        });
     });
     countItemsDisplay.textContent = `${CountItems} Items`
 }
@@ -202,7 +232,7 @@ dropdownItems.forEach((item) => {
         let tovarsWhatSeeArray = Array.from(tovarsWhatSee);
         let isPriceLowHigh = event.target.textContent == "Price (Low - High)";
         let isPriceHighLow = event.target.textContent == "Price (High - Low)";
-        
+
         if (isPriceLowHigh || isPriceHighLow) {
             tovarsWhatSeeArray.sort((a, b) => {
                 let priceA = parseFloat(a.querySelector('.priceProduct').textContent.replace('$', ''));
@@ -230,16 +260,16 @@ function Sort(array) {
     let isPriceLowHigh = selectedOption.textContent == "Price (Low - High)";
     let isPriceHighLow = selectedOption.textContent == "Price (High - Low)";
 
-        if (isPriceLowHigh || isPriceHighLow) {
-            array.sort((a, b) => {
-                if (isPriceLowHigh) {
-                    return a.prise - b.prise;
-                } else if (isPriceHighLow) {
-                    return b.prise - a.prise;
-                }
-                return 0;
-            });
-        }
+    if (isPriceLowHigh || isPriceHighLow) {
+        array.sort((a, b) => {
+            if (isPriceLowHigh) {
+                return a.prise - b.prise;
+            } else if (isPriceHighLow) {
+                return b.prise - a.prise;
+            }
+            return 0;
+        });
+    }
 }
 
 logo.addEventListener("click", () => {
@@ -271,7 +301,7 @@ navItems.forEach((item) => {
 
 
 const addButton = document.getElementById("addButton");
-const modal = document.getElementById("modal");
+const modal = document.getElementById("AddModal");
 const closeButton = document.getElementById("closeButton");
 const form = document.querySelector('form');
 
@@ -290,45 +320,56 @@ window.addEventListener("click", (event) => {
     }
 });
 
-// function generateRandomString(length) {
-//     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+[]{}|;:,.<>?';
-//     let result = '';
-//     for (let i = 0; i < length; i++) {
-//         const randomIndex = Math.floor(Math.random() * characters.length);
-//         result += characters[randomIndex];
-//     }
-//     return result;
-// }
+function generateRandomString(length) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+[]{}|;:,.<>?';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters[randomIndex];
+    }
+    return result;
+}
 
 // Додавання нового товару
 form.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const category = form['category'].value;
-    const img = form['img'].value;
+    const imgInput = document.getElementById('imgInput');
     const nazva = form['nazva'].value;
     const prise = form['prise'].value;
     const count = form['count'].value;
 
-    const newProduct = {
-        id: 0,
-        img: img,
-        nazva: nazva,
-        category: category,
-        count: count,
-        prise: prise
+    // Перевіряємо, чи вибрано файл
+    if (!imgInput.files.length) {
+        alert('Будь ласка, виберіть зображення');
+        return;
     }
 
-    // Генерація унікального ключа для нового товару
-    // const uniqueKey = generateRandomString(20);
-    // localStorage.setItem(uniqueKey, JSON.stringify(newProduct));
+    const file = imgInput.files[0];
+    const reader = new FileReader();
 
-    tovars.push(newProduct);
-    localStorage.setItem('products', JSON.stringify(tovars));
-    showProductsAdmin(tovars);
+    // Конвертуємо файл у base64
+    reader.onload = function () {
+        const newProduct = {
+            id: generateRandomString(20),
+            img: reader.result, // Збереження зображення у форматі base64
+            nazva: nazva,
+            category: category,
+            count: count,
+            prise: prise
+        };
 
-    addForm.reset();
+        tovars = JSON.parse(localStorage.getItem('products')) || [];
+        tovars.push(newProduct);
+        localStorage.setItem('products', JSON.stringify(tovars));
 
-    modal.style.display = "none";
+        showProductsAdmin(tovars);
+
+        form.reset();
+        modal.style.display = "none";
+    };
+
+    // Читання файлу як Data URL (base64)
+    reader.readAsDataURL(file);
 });
-

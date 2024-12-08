@@ -1,4 +1,5 @@
 let tovar1 = {
+    id: "0",
     img: "/imgs/product-shot-wooden-parallettes-extended-2_91945174-2e6b-43e3-b101-1cf692ed68c2.webp",
     nazva: "Wooden Parallettes",
     category: "Equipment",
@@ -6,6 +7,7 @@ let tovar1 = {
     prise: 65
 }
 let tovar2 = {
+    id: "0",
     img: "/imgs/premium-parallettes-max-product-photo.webp",
     nazva: "Premium Parallettes Max",
     category: "Equipment",
@@ -17,6 +19,7 @@ let tovars = [
     tovar1,
     tovar2,
     {
+        id: "0",
         img: "/imgs/gornation-metal-parallettes-1.webp",
         nazva: "Metal Parallettes",
         category: "Equipment",
@@ -24,6 +27,7 @@ let tovars = [
         prise: 109
     },
     {
+        id: "0",
         img: "/imgs/calisthenics-mesh-shirt-black-front-view.webp",
         nazva: "Mesh Shirt Men",
         category: "Men",
@@ -31,6 +35,7 @@ let tovars = [
         prise: 33
     },
     {
+        id: "0",
         img: "/imgs/shorts-taupe-front_53c4f31f-6a30-40c8-b235-d0823f30e7b4.webp",
         nazva: "Rib Shorts Women",
         category: "Women",
@@ -38,6 +43,7 @@ let tovars = [
         prise: 38
     },
     {
+        id: "0",
         img: "/imgs/20kg-weight-vest-gornation-side-view_f594debd-77a0-4c6a-9266-132f70b26482.jpg",
         nazva: "Elite Weight Vest 20kg",
         category: "Equipment",
@@ -45,6 +51,7 @@ let tovars = [
         prise: 109
     },
     {
+        id: "0",
         img: "/imgs/jump-rope-gornation-1.webp",
         nazva: "Jump Rope",
         category: "Accessories",
@@ -52,6 +59,7 @@ let tovars = [
         prise: 22
     },
     {
+        id: "0",
         img: "/imgs/gornation-liquid-chalk-200ml.webp",
         nazva: "Premium Liquid Chalk",
         category: "Accessories",
@@ -59,6 +67,7 @@ let tovars = [
         prise: 17
     },
     {
+        id: "0",
         img: "/imgs/Performance-Wrist-Wraps-GORNATION-34941417-34941499-34941478.webp",
         nazva: "Performance Wrist Wraps",
         category: "Accessories",
@@ -66,6 +75,7 @@ let tovars = [
         prise: 21
     },
     {
+        id: "0",
         img: "/imgs/baselayer-white-front-dynamic.webp",
         nazva: "Performance Baselayer Men",
         category: "Men",
@@ -73,6 +83,7 @@ let tovars = [
         prise: 31
     },
     {
+        id: "0",
         img: "/imgs/bra-white-front.webp",
         nazva: "Rib Sports Bra Women",
         category: "Women",
@@ -84,7 +95,7 @@ let tovars = [
 if (localStorage.getItem('products') == undefined)
     localStorage.setItem('products', JSON.stringify(tovars));
 else
-tovars = JSON.parse(localStorage.getItem('products'));
+    tovars = JSON.parse(localStorage.getItem('products'));
 
 
 showProducts(tovars);
