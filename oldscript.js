@@ -93,25 +93,69 @@ let tovars = [
 ]
 
 tovars.forEach(tovar => {
-    tovar.id = generateRandomString(10);
+    tovar.id = generateRandomString(20);
 });
-
-function generateRandomString(length) {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+[]{}|;:,.<>?';
-    let result = '';
-    for (let i = 0; i < length; i++) {
-        const randomIndex = Math.floor(Math.random() * characters.length);
-        result += characters[randomIndex];
-    }
-    return result;
-}
 
 if (localStorage.getItem('products') == undefined)
     localStorage.setItem('products', JSON.stringify(tovars));
 else
     tovars = JSON.parse(localStorage.getItem('products'));
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+showProductsAdmin(tovars);
+function showProductsAdmin(whatToShow) {
+    let products = document.querySelector('.products');
+    tovars = JSON.parse(localStorage.getItem('products'));
+    products.innerHTML = "";
+    let countItemsDisplay = document.querySelector('.items-count');
+    let CountItems = 0;
+    whatToShow.forEach(tovar => {
+        CountItems += 1;
+        let product = document.createElement('tr');
+        product.classList.add('product')
+        products.appendChild(product);
+        product.innerHTML = `
+            <td>${tovar.id}</td>
+            <td>${tovar.category}</td>
+            <td class="img"><img src=${tovar.img}></td>
+            <td class="nameProduct">${tovar.nazva}</td>
+            <td class="priceProduct">$${tovar.prise}</td>
+            <td class="countProduct">${tovar.count}</td>
+            <td class="action-buttons">
+                <input class="edit" type="button" value="Редагувати">
+                <input class="delete" type="button" value="Видалити">
+            </td>
+        `
+        let btnDelete = product.querySelector('.delete');
+        btnDelete.addEventListener('click', () => {
+            let index = tovars.findIndex(item => item.id == tovar.id);
+            if (index !== -1) {
+                tovars.splice(index, 1);
+                localStorage.setItem('products', JSON.stringify(tovars));
+                showProductsAdmin(tovars);
+            }
+        });
+
+        const EditModal = document.getElementById("EditModal");
+        let btnEdit = product.querySelector('.edit');
+        const closeButtonEditModal = document.getElementById("closeButtonEditModal");
+        btnEdit.addEventListener("click", () => {
+            openEditModal(tovar)
+        });
+        closeButtonEditModal.addEventListener("click", () => {
+            EditModal.style.display = "none";
+        });
+        window.addEventListener("click", (event) => {
+            if (event.target === EditModal) {
+                EditModal.style.display = "none";
+            }
+        });
+    });
+    countItemsDisplay.textContent = `${CountItems} Items`
+}
+
+
 let searchInput = document.getElementById('searchInput');
 // Налаштування Fuse.js
 let options = {
@@ -239,6 +283,16 @@ function Sort(array) {
 }
 
 logo.addEventListener("click", () => {
+    // Sort(tovars);
+    // dropdownItems.forEach((el) => {
+    //     el.classList.remove("selectedItem");
+    // });
+    // selectedOption.textContent = "Choose";
+    // selectedOption.style.color = "#333"
+
+    // let products = document.querySelector('.products');
+    // products.innerHTML = '';
+    // showProducts(tovars);
     window.location.href = '/index.html';
 });
 
@@ -254,131 +308,48 @@ navItems.forEach((item) => {
         showProductsAdmin(filteredTovars);
     });
 });
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-showProductsAdmin(tovars);
-function showProductsAdmin(whatToShow) {
-    let products = document.querySelector('.products');
-    tovars = JSON.parse(localStorage.getItem('products'));
-    products.innerHTML = "";
-    let countItemsDisplay = document.querySelector('.items-count');
-    let CountItems = 0;
-    whatToShow.forEach(tovar => {
-        CountItems += 1;
-        let product = document.createElement('tr');
-        product.classList.add('product')
-        products.appendChild(product);
-        product.innerHTML = `
-            <td>${tovar.id}</td>
-            <td>${tovar.category}</td>
-            <td class="img"><img src=${tovar.img}></td>
-            <td class="nameProduct">${tovar.nazva}</td>
-            <td class="priceProduct">$${tovar.prise}</td>
-            <td class="countProduct">${tovar.count}</td>
-            <td class="action-buttons">
-                <input class="edit" type="button" value="Редагувати">
-                <input class="delete" type="button" value="Видалити">
-            </td>
-        `
-        let btnDelete = product.querySelector('.delete');
-        btnDelete.addEventListener('click', () => {
-            let index = tovars.findIndex(item => item.id == tovar.id);
-            if (index !== -1) {
-                tovars.splice(index, 1);
-                localStorage.setItem('products', JSON.stringify(tovars));
-                showProductsAdmin(tovars);
-            }
-        });
-
-        let btnEdit = product.querySelector('.edit');
-        btnEdit.addEventListener("click", () => {
-            openEditModal(tovar)
-        });
-    });
-    countItemsDisplay.textContent = `${CountItems} Items`
-}
-
-let closeButtons = document.querySelectorAll(".close-button");
-let editModal = document.getElementById("EditModal");
-let addModal = document.getElementById("AddModal");
-const addForm = document.getElementById('addForm');
-
-closeButtons.forEach(closeButton => {
-    closeButton.addEventListener("click", () => {
-        editModal.style.display = "none";
-        addModal.style.display = "none";
-    });
-});
-
-window.addEventListener("click", (event) => {
-    if (event.target === editModal || event.target === addModal) {
-        editModal.style.display = "none";
-        addModal.style.display = "none";
-    }
-});
 
 const addButton = document.getElementById("addButton");
+const AddModal = document.getElementById("AddModal");
+const EditModal = document.getElementById("EditModal");
+const closeButtonAddModal = document.getElementById("closeButtonAddModal");
+const addForm = document.getElementById('addForm');
 
 addButton.addEventListener("click", () => {
-    const currentImg = document.getElementById('currentImgAddModal');
-    const imgInput = document.getElementById("imgInputAdd");
-
-
-
-    imgInput.addEventListener("change", (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-
-            reader.onload = (e) => {
-                currentImg.src = e.target.result;
-            };
-
-            reader.readAsDataURL(file);
-        }
-    });
     AddModal.style.display = "flex";
 });
 
-function openAddModal(tovar) {
-    editProductId = tovar.id;
-    const categorySelect = document.getElementById('category');
-    const currentImg = document.getElementById('currentImgEditModal');
-    const nazvaInput = editForm['nazva'];
-    const priseInput = editForm['prise'];
-    const countInput = editForm['count'];
-    const imgInput = document.getElementById("imgInputEdit");
+closeButtonAddModal.addEventListener("click", () => {
+    AddModal.style.display = "none";
+});
 
-    
-    const optionToSelect = Array.from(categorySelect.options).find(option => option.value === tovar.category);
-    if (optionToSelect) {
-        optionToSelect.selected = true;
+// Закриття модального вікна при кліку поза ним
+window.addEventListener("click", (event) => {
+    if (event.target === AddModal) {
+        AddModal.style.display = "none";
     }
-    currentImg.src = tovar.img || '';
-    nazvaInput.value = tovar.nazva;
-    priseInput.value = tovar.prise;
-    countInput.value = tovar.count;
-    
-    imgInput.addEventListener("change", (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
+    else if (event.target === EditModal) {
+        EditModal.style.display = "none";
+    }
+});
 
-            reader.onload = (e) => {
-                currentImg.src = e.target.result;
-            };
-
-            reader.readAsDataURL(file);
-        }
-    });
-    EditModal.style.display = "flex";
+function generateRandomString(length) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+[]{}|;:,.<>?';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters[randomIndex];
+    }
+    return result;
 }
 
+// Додавання нового товару
 addForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const category = addForm['category'].value;
-    const imgInput = document.getElementById('imgInputAdd');
+    const imgInput = document.getElementById('imgInput');
     const nazva = addForm['nazva'].value;
     const prise = addForm['prise'].value;
     const count = addForm['count'].value;
@@ -395,7 +366,7 @@ addForm.addEventListener("submit", (event) => {
     // Конвертуємо файл у base64
     reader.onload = function () {
         const newProduct = {
-            id: generateRandomString(10),
+            id: generateRandomString(20),
             img: reader.result, // Збереження зображення у форматі base64
             nazva: nazva,
             category: category,
@@ -417,46 +388,32 @@ addForm.addEventListener("submit", (event) => {
     reader.readAsDataURL(file);
 });
 
+const editForm = document.getElementById("editForm");
 let editProductId = null;
+
 function openEditModal(tovar) {
-    editProductId = tovar.id;
-    const categorySelect = document.getElementById('categoryEdit');
-    const currentImg = document.getElementById('currentImgEditModal');
+    editProductId = tovar.id; // Зберігаємо ID товару
+    const categoryInput = editForm['category'];
+    const imgInput = document.getElementById('imgInput');
     const nazvaInput = editForm['nazva'];
     const priseInput = editForm['prise'];
     const countInput = editForm['count'];
-    const imgInput = document.getElementById("imgInputEdit");
 
-    const optionToSelect = Array.from(categorySelect.options).find(option => option.value === tovar.category);
-    if (optionToSelect) {
-        optionToSelect.selected = true;
-    }
-    currentImg.src = tovar.img || '';
+    // Заповнюємо поля форми
+    categoryInput.value = tovar.category;
     nazvaInput.value = tovar.nazva;
     priseInput.value = tovar.prise;
     countInput.value = tovar.count;
-    
-    imgInput.addEventListener("change", (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
 
-            reader.onload = (e) => {
-                currentImg.src = e.target.result;
-            };
-
-            reader.readAsDataURL(file);
-        }
-    });
+    // Показуємо модальне вікно
     EditModal.style.display = "flex";
 }
-
-const editForm = document.getElementById("editForm");
+// Редагування товару
 editForm.addEventListener("submit", (event) => {
     event.preventDefault();
-    
+
     const category = editForm['category'].value;
-    const imgInput = document.getElementById('imgInputEdit');
+    const imgInput = document.getElementById('imgInput');
     const nazva = editForm['nazva'].value;
     const prise = editForm['prise'].value;
     const count = editForm['count'].value;
@@ -467,7 +424,7 @@ editForm.addEventListener("submit", (event) => {
         alert("Товар не знайдено!");
         return;
     }
-    
+
     // Якщо змінено зображення
     if (imgInput.files.length) {
         const file = imgInput.files[0];

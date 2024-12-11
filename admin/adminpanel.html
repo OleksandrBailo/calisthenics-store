@@ -10,21 +10,23 @@
 
 <body>
     <header>
-        <div class="logo"><img src="/imgs/LOGOmain-removebg-preview.png" alt=""></div>
-        <nav class="navHeader">
-            <div class="navItem">Men</div>
-            <div class="navItem">Women</div>
-            <div class="navItem">Equipment</div>
-            <div class="navItem">Accessories</div>
-        </nav>
-        <div class="searchAndIcons">
-            <div class="searchBox">
-                <input id="searchInput" type="text" placeholder="Search">
-                <div class="icon Search"><img src="/imgs/Search icon.png" alt="searchIcon"></div>
+        <div class="inHeader">
+            <div class="logo"><img src="/imgs/LOGOmain-removebg-preview.png" alt=""></div>
+            <nav class="navHeader">
+                <div class="navItem">Men</div>
+                <div class="navItem">Women</div>
+                <div class="navItem">Equipment</div>
+                <div class="navItem">Accessories</div>
+            </nav>
+            <div class="searchAndIcons">
+                <div class="searchBox">
+                    <input id="searchInput" type="text" placeholder="Search">
+                    <div class="icon Search"><img src="/imgs/Search icon.png" alt="searchIcon"></div>
+                </div>
+                <div class="icon"><img src="/imgs/Profile icon.png" alt="profileIcon"></div>
+                <!-- <div class="icon"><img src="/imgs/Folowed icon.png" alt="folowedIcon"></div> -->
+                <div class="icon"><img src="/imgs/Bag icon.png" alt="BagIcon"></div>
             </div>
-            <div class="icon"><img src="/imgs/Profile icon.png" alt="profileIcon"></div>
-            <!-- <div class="icon"><img src="/imgs/Folowed icon.png" alt="folowedIcon"></div> -->
-            <div class="icon"><img src="/imgs/Bag icon.png" alt="BagIcon"></div>
         </div>
     </header>
     <main>
@@ -42,7 +44,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             <!-- <li class="dropdown-item">Now Trending</li>
-                    <li class="dropdown-item">Best Sellers</li> -->
+                            <li class="dropdown-item">Best Sellers</li> -->
                             <li class="dropdown-item">Price (Low - High)</li>
                             <li class="dropdown-item">Price (High - Low)</li>
                             <li class="dropdown-item">Top Rated</li>
@@ -60,11 +62,19 @@
                 <form id="addForm">
                     <div class="form-group">
                         <label for="category">Категорія:</label>
-                        <input type="text" name="category" required>
+                        <select name="category" id="categoryAdd" required>
+                            <option value="Men"selected>Men</option>
+                            <option value="Women">Women</option>
+                            <option value="Equipment">Equipment</option>
+                            <option value="Accessories">Accessories</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="img">Картинка:</label>
-                        <input type="file" name="img" id="imgInput" accept="image/*" required>
+                        <img id="currentImgAddModal" src="" alt="Current Image">
+                        <label for="imgInputAdd" class="custom-file-upload-Add">
+                            Оберіть зображення
+                        </label>
+                        <input type="file" name="img" id="imgInputAdd" accept="image/*" style="display: none;" required>
                     </div>
                     <div class="form-group">
                         <label for="nazva">Ім'я:</label>
@@ -87,14 +97,22 @@
             <div class="modal-content">
                 <span class="close-button" id="closeButton">x</span>
                 <h2>Редагувати товар</h2>
-                <form id="addForm">
+                <form id="editForm">
                     <div class="form-group">
                         <label for="category">Категорія:</label>
-                        <input type="text" name="category" required>
+                        <select name="category" id="categoryEdit" required>
+                            <option value="Men"selected>Men</option>
+                            <option value="Women">Women</option>
+                            <option value="Equipment">Equipment</option>
+                            <option value="Accessories">Accessories</option>
+                        </select>
                     </div>
-                    <div class="form-group">
-                        <label for="img">Картинка:</label>
-                        <input type="file" name="img" id="imgInput" accept="image/*" required>
+                    <div class="form-group FlexVertical" style="gap: 20px;">
+                        <img id="currentImgEditModal" src="" alt="Current Image">
+                        <label for="imgInputEdit" class="custom-file-upload-Edit">
+                            Оберіть зображення
+                        </label>
+                        <input type="file" name="img" id="imgInputEdit" accept="image/*" style="display: none;">
                     </div>
                     <div class="form-group">
                         <label for="nazva">Ім'я:</label>
@@ -108,7 +126,7 @@
                         <label for="count">Кількість:</label>
                         <input type="number" name="count" required>
                     </div>
-                    <input type="submit" value="Додати" class="submitButton">
+                    <input type="submit" value="Зберегти" class="submitButton">
                 </form>
             </div>
         </div>
@@ -134,4 +152,5 @@
     <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>
