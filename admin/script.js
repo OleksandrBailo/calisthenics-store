@@ -323,8 +323,6 @@ addButton.addEventListener("click", () => {
     const currentImg = document.getElementById('currentImgAddModal');
     const imgInput = document.getElementById("imgInputAdd");
 
-
-
     imgInput.addEventListener("change", (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -339,40 +337,6 @@ addButton.addEventListener("click", () => {
     });
     AddModal.style.display = "flex";
 });
-
-function openAddModal(tovar) {
-    editProductId = tovar.id;
-    const categorySelect = document.getElementById('category');
-    const currentImg = document.getElementById('currentImgEditModal');
-    const nazvaInput = editForm['nazva'];
-    const priseInput = editForm['prise'];
-    const countInput = editForm['count'];
-    const imgInput = document.getElementById("imgInputEdit");
-
-    
-    const optionToSelect = Array.from(categorySelect.options).find(option => option.value === tovar.category);
-    if (optionToSelect) {
-        optionToSelect.selected = true;
-    }
-    currentImg.src = tovar.img || '';
-    nazvaInput.value = tovar.nazva;
-    priseInput.value = tovar.prise;
-    countInput.value = tovar.count;
-    
-    imgInput.addEventListener("change", (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-
-            reader.onload = (e) => {
-                currentImg.src = e.target.result;
-            };
-
-            reader.readAsDataURL(file);
-        }
-    });
-    EditModal.style.display = "flex";
-}
 
 addForm.addEventListener("submit", (event) => {
     event.preventDefault();
