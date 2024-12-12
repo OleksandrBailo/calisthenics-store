@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>adminPanel_Lab_6-7</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/header.css">
+    <link rel="stylesheet" href="/sort.css">
 </head>
 
 <body>
@@ -19,11 +21,13 @@
                 <div class="navItem">Accessories</div>
             </nav>
             <div class="searchAndIcons">
-                <div class="searchBox">
-                    <input id="searchInput" type="text" placeholder="Search">
-                    <div class="icon Search"><img src="/imgs/Search icon.png" alt="searchIcon"></div>
+                <div class="aboveSearchBox">
+                    <div class="searchBox">
+                        <input id="searchInput" type="text" placeholder="Search">
+                        <div class="icon Search"><img src="/imgs/Search icon.png" alt="searchIcon"></div>
+                    </div>
                 </div>
-                <div class="icon"><img src="/imgs/Profile icon.png" alt="profileIcon"></div>
+                <div class="icon"><a href="/admin/adminpanel.html"><img src="/imgs/Profile icon.png" alt="profileIcon"></a></div>
                 <!-- <div class="icon"><img src="/imgs/Folowed icon.png" alt="folowedIcon"></div> -->
                 <div class="icon"><img src="/imgs/Bag icon.png" alt="BagIcon"></div>
             </div>
@@ -63,7 +67,7 @@
                     <div class="form-group">
                         <label for="category">Категорія:</label>
                         <select name="category" id="categoryAdd" required>
-                            <option value="Men"selected>Men</option>
+                            <option value="Men" selected>Men</option>
                             <option value="Women">Women</option>
                             <option value="Equipment">Equipment</option>
                             <option value="Accessories">Accessories</option>
@@ -101,7 +105,7 @@
                     <div class="form-group">
                         <label for="category">Категорія:</label>
                         <select name="category" id="categoryEdit" required>
-                            <option value="Men"selected>Men</option>
+                            <option value="Men" selected>Men</option>
                             <option value="Women">Women</option>
                             <option value="Equipment">Equipment</option>
                             <option value="Accessories">Accessories</option>

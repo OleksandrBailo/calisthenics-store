@@ -1,0 +1,92 @@
+.sortBlockAboveProducts {
+    display: flex;
+    justify-content: end;
+    width: 1116px;
+    margin-top: 50px;
+    margin-bottom: 27px;
+}
+
+.sort-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.items-count {
+    font-size: 14px;
+    color: #5D5D5D;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+#selected-option {
+    width: 110px;
+    text-align: start;
+    overflow: hidden;
+    font-family: 'Poppins';
+    font-size: 1rem;
+    white-space: nowrap;
+    color: #333;
+}
+
+.dropdown-button {
+    width: 164px;
+    height: 44px;
+    background: #fff;
+    border: 1px solid #1d1d1d;
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    border-radius: 4px;
+}
+
+.arrow {
+    display: flex;
+    align-items: center;
+}
+.arrow img {
+    width: 16px;
+    transition: transform 0.2s ease;
+}
+
+.dropdown-menu {
+    display: none;
+    list-style: none;
+    position: absolute;
+    padding: 0px;
+    top: 100%;
+    left: 0;
+    width: 162px;
+    background: #fff;
+    border: 1px solid #1d1d1d;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 0px 0px 4px 4px;
+    z-index: 1000;
+    margin-top: -1px;
+}
+
+.dropdown-menu.active {
+    display: block;
+}
+
+.dropdown-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+}
+.dropdown-item.selectedItem {
+    background-color: #f0f0f0;
+    color: #000;
+}
+
+.dropdown-item:hover {
+    background: #f0f0f0;
+}
