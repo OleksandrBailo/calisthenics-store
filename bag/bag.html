@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>bag_Lab_6-7</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="/header.css">
+    <link rel="stylesheet" href="/styles/header.css">
+    <link rel="stylesheet" href="/styles/sort.css">
 </head>
+
 <body>
     <header>
         <div class="inHeader">
@@ -24,14 +27,56 @@
                         <div class="icon Search"><img src="/imgs/Search icon.png" alt="searchIcon"></div>
                     </div>
                 </div>
-                <div class="icon"><a href="/admin/adminpanel.html"><img src="/imgs/Profile icon.png" alt="profileIcon"></a></div>
+                <div class="icon"><a href="/admin/adminpanel.html"><img src="/imgs/Profile icon.png"
+                            alt="profileIcon"></a></div>
                 <!-- <div class="icon"><img src="/imgs/Folowed icon.png" alt="folowedIcon"></div> -->
-                <div class="icon"><a href="/bag/bag.html"><img src="/imgs/Bag icon.png" alt="BagIcon"></div></a></div>
+                <div class="icon"><a href="/bag/bag.html"><img src="/imgs/Bag icon.png" alt="BagIcon"></div></a>
             </div>
         </div>
     </header>
+    <main>
+        <div class="inMain">
+            <div class="Bag">
+                <div class="topOfBag">
+                    <div class="bagTitle-count">
+                        <span class="bagTitle">Your Bag</span>
+                        <span class="items-count">(0 Items)</span>
+                    </div>
+                </div>
 
+                <div class="emptyBag">
+                    <div class="emptyTitle">Uh-oh. It's empty!</div>
+                    <div class="emptyText">Don't know where to start? Here's the gear everyone's after.</div>
+                    <input class="emptyBagButton" type="button" value="Shop">
+                </div>
+
+                <div class="products">
+
+                </div>
+
+
+
+            </div>
+            <div class="Order">
+                <div class="inOrder">
+                    <div class="orderSummary">Order Summary</div>
+                    <div class="subtotal">
+                        <div class="inSubtotal">Subtotal (<span>0</span>)</div>
+                        <div class="subtotalPrice">$<span>0</span></div>
+                    </div>
+                    <div class="estimatedShipping">
+                        <div class="inEstimatedShipping">Estimated Shipping:</div>
+                        <div class="estimatedShippingPrice"><span>Free</span></div>
+                    </div>
+                </div>
+                <div class="totalOrder">
+                    
+                </div>
+            </div>
+        </div>
+    </main>
 
     <script src="script.js"></script>
 </body>
+
 </html>

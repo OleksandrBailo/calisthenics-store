@@ -1,30 +1,30 @@
-let tovar1 = {
-    id: "0",
-    img: "/imgs/product-shot-wooden-parallettes-extended-2_91945174-2e6b-43e3-b101-1cf692ed68c2.webp",
-    nazva: "Wooden Parallettes",
-    category: "Equipment",
-    count: 20,
-    prise: 65
-}
-let tovar2 = {
-    id: "0",
-    img: "/imgs/premium-parallettes-max-product-photo.webp",
-    nazva: "Premium Parallettes Max",
-    category: "Equipment",
-    count: 10,
-    prise: 131
-}
-
 let tovars = [
-    tovar1,
-    tovar2,
+    {
+        id: "0",
+        img: "/imgs/product-shot-wooden-parallettes-extended-2_91945174-2e6b-43e3-b101-1cf692ed68c2.webp",
+        nazva: "Wooden Parallettes",
+        category: "Equipment",
+        count: 20,
+        prise: 65,
+        howManyWantBuy: 0
+    },
+    {
+        id: "0",
+        img: "/imgs/premium-parallettes-max-product-photo.webp",
+        nazva: "Premium Parallettes Max",
+        category: "Equipment",
+        count: 10,
+        prise: 131,
+        howManyWantBuy: 0
+    },
     {
         id: "0",
         img: "/imgs/gornation-metal-parallettes-1.webp",
         nazva: "Metal Parallettes",
         category: "Equipment",
         count: 15,
-        prise: 109
+        prise: 109,
+        howManyWantBuy: 0
     },
     {
         id: "0",
@@ -32,7 +32,8 @@ let tovars = [
         nazva: "Mesh Shirt Men",
         category: "Men",
         count: 20,
-        prise: 33
+        prise: 33,
+        howManyWantBuy: 0
     },
     {
         id: "0",
@@ -40,7 +41,8 @@ let tovars = [
         nazva: "Rib Shorts Women",
         category: "Women",
         count: 10,
-        prise: 38
+        prise: 38,
+        howManyWantBuy: 0
     },
     {
         id: "0",
@@ -48,7 +50,8 @@ let tovars = [
         nazva: "Elite Weight Vest 20kg",
         category: "Equipment",
         count: 8,
-        prise: 109
+        prise: 109,
+        howManyWantBuy: 0
     },
     {
         id: "0",
@@ -56,7 +59,8 @@ let tovars = [
         nazva: "Jump Rope",
         category: "Accessories",
         count: 16,
-        prise: 22
+        prise: 22,
+        howManyWantBuy: 0
     },
     {
         id: "0",
@@ -64,7 +68,8 @@ let tovars = [
         nazva: "Premium Liquid Chalk",
         category: "Accessories",
         count: 29,
-        prise: 17
+        prise: 17,
+        howManyWantBuy: 0
     },
     {
         id: "0",
@@ -72,7 +77,8 @@ let tovars = [
         nazva: "Performance Wrist Wraps",
         category: "Accessories",
         count: 21,
-        prise: 21
+        prise: 21,
+        howManyWantBuy: 0
     },
     {
         id: "0",
@@ -80,7 +86,8 @@ let tovars = [
         nazva: "Performance Baselayer Men",
         category: "Men",
         count: 12,
-        prise: 31
+        prise: 31,
+        howManyWantBuy: 0
     },
     {
         id: "0",
@@ -88,7 +95,8 @@ let tovars = [
         nazva: "Rib Sports Bra Women",
         category: "Women",
         count: 12,
-        prise: 44
+        prise: 44,
+        howManyWantBuy: 0
     }
 ]
 
@@ -156,8 +164,8 @@ searchInput.addEventListener('input', () => {
 
 let dropdownButton = document.querySelector(".dropdown-button");
 let dropdownMenu = document.querySelector(".dropdown-menu");
-let selectedOption = document.getElementById("selected-option");
-let arrow = document.getElementById('arrowImg');
+let selectedOption = document.querySelector(".selected-option");
+let arrow = document.querySelector('.arrow-img');
 let dropdownItems = document.querySelectorAll(".dropdown-menu .dropdown-item")
 
 // Відкривання/закривання меню
@@ -364,7 +372,8 @@ addForm.addEventListener("submit", (event) => {
             nazva: nazva,
             category: category,
             count: count,
-            prise: prise
+            prise: prise,
+            howManyWantBuy: 0
         };
 
         tovars = JSON.parse(localStorage.getItem('products')) || [];

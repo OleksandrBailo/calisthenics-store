@@ -22,7 +22,7 @@
     display: inline-block;
 }
 
-#selected-option {
+.selected-option {
     width: 110px;
     text-align: start;
     overflow: hidden;
@@ -57,6 +57,8 @@
 }
 
 .dropdown-menu {
+    max-height: 150px;
+    overflow-y: auto;
     display: none;
     list-style: none;
     position: absolute;
@@ -68,7 +70,7 @@
     border: 1px solid #1d1d1d;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 0px 0px 4px 4px;
-    z-index: 1000;
+    z-index: 10;
     margin-top: -1px;
 }
 

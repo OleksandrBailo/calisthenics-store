@@ -23,6 +23,7 @@ main {
     height: 330px;
 }
 .product .addToBag {
+    cursor: pointer;
     position: absolute;
     top: 282px;
     right: 8px;

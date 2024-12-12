@@ -1,30 +1,30 @@
-let tovar1 = {
-    id: "0",
-    img: "/imgs/product-shot-wooden-parallettes-extended-2_91945174-2e6b-43e3-b101-1cf692ed68c2.webp",
-    nazva: "Wooden Parallettes",
-    category: "Equipment",
-    count: 20,
-    prise: 65
-}
-let tovar2 = {
-    id: "0",
-    img: "/imgs/premium-parallettes-max-product-photo.webp",
-    nazva: "Premium Parallettes Max",
-    category: "Equipment",
-    count: 10,
-    prise: 131
-}
-
 let tovars = [
-    tovar1,
-    tovar2,
+    {
+        id: "0",
+        img: "/imgs/product-shot-wooden-parallettes-extended-2_91945174-2e6b-43e3-b101-1cf692ed68c2.webp",
+        nazva: "Wooden Parallettes",
+        category: "Equipment",
+        count: 20,
+        prise: 65,
+        howManyWantBuy: 0
+    },
+    {
+        id: "0",
+        img: "/imgs/premium-parallettes-max-product-photo.webp",
+        nazva: "Premium Parallettes Max",
+        category: "Equipment",
+        count: 10,
+        prise: 131,
+        howManyWantBuy: 0
+    },
     {
         id: "0",
         img: "/imgs/gornation-metal-parallettes-1.webp",
         nazva: "Metal Parallettes",
         category: "Equipment",
         count: 15,
-        prise: 109
+        prise: 109,
+        howManyWantBuy: 0
     },
     {
         id: "0",
@@ -32,7 +32,8 @@ let tovars = [
         nazva: "Mesh Shirt Men",
         category: "Men",
         count: 20,
-        prise: 33
+        prise: 33,
+        howManyWantBuy: 0
     },
     {
         id: "0",
@@ -40,7 +41,8 @@ let tovars = [
         nazva: "Rib Shorts Women",
         category: "Women",
         count: 10,
-        prise: 38
+        prise: 38,
+        howManyWantBuy: 0
     },
     {
         id: "0",
@@ -48,7 +50,8 @@ let tovars = [
         nazva: "Elite Weight Vest 20kg",
         category: "Equipment",
         count: 8,
-        prise: 109
+        prise: 109,
+        howManyWantBuy: 0
     },
     {
         id: "0",
@@ -56,7 +59,8 @@ let tovars = [
         nazva: "Jump Rope",
         category: "Accessories",
         count: 16,
-        prise: 22
+        prise: 22,
+        howManyWantBuy: 0
     },
     {
         id: "0",
@@ -64,7 +68,8 @@ let tovars = [
         nazva: "Premium Liquid Chalk",
         category: "Accessories",
         count: 29,
-        prise: 17
+        prise: 17,
+        howManyWantBuy: 0
     },
     {
         id: "0",
@@ -72,7 +77,8 @@ let tovars = [
         nazva: "Performance Wrist Wraps",
         category: "Accessories",
         count: 21,
-        prise: 21
+        prise: 21,
+        howManyWantBuy: 0
     },
     {
         id: "0",
@@ -80,7 +86,8 @@ let tovars = [
         nazva: "Performance Baselayer Men",
         category: "Men",
         count: 12,
-        prise: 31
+        prise: 31,
+        howManyWantBuy: 0
     },
     {
         id: "0",
@@ -88,9 +95,26 @@ let tovars = [
         nazva: "Rib Sports Bra Women",
         category: "Women",
         count: 12,
-        prise: 44
+        prise: 44,
+        howManyWantBuy: 0
     }
 ]
+
+let bag = [];
+
+tovars.forEach(tovar => {
+    tovar.id = generateRandomString(10);
+});
+
+function generateRandomString(length) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+[]{}|;:,.<>?';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters[randomIndex];
+    }
+    return result;
+}
 
 if (localStorage.getItem('products') == undefined)
     localStorage.setItem('products', JSON.stringify(tovars));
@@ -115,6 +139,34 @@ function showProducts(whatToShow) {
                 <div class="countProduct">Amount: ${tovar.count}</div>
                 <div class="priceProduct">$${tovar.prise}</div>
         `
+        let addToBag = product.querySelector(".addToBag");
+        addToBag.addEventListener("click", () => {
+            bag = JSON.parse(localStorage.getItem('bag')) || [];
+        
+            // Перевіряємо, чи товар уже в кошику
+            const existingItemIndex = bag.findIndex(item => item.id === tovar.id);
+        
+            if (existingItemIndex !== -1) {
+                // Товар є в кошику, оновлюємо його кількість
+                if (bag[existingItemIndex].howManyWantBuy + 1 <= tovar.count) {
+                    bag[existingItemIndex].howManyWantBuy++;
+                } else if (bag[existingItemIndex].howManyWantBuy == tovar.count) {
+                    alert("Це був останній. Товару не можна додати більше, ніж є в наявності!");
+                }
+            } else {
+                // Додаємо новий товар до кошика
+                if (tovar.howManyWantBuy + 1 <= tovar.count) {
+                    tovar.howManyWantBuy = 1; // Встановлюємо кількість для нового товару
+                    bag.push({ ...tovar });
+                } else {
+                    alert("Товар уже закінчився!");
+                }
+            }
+        
+            // Оновлюємо дані у LocalStorage
+            localStorage.setItem('bag', JSON.stringify(bag));
+            localStorage.setItem('products', JSON.stringify(tovars));
+        });
     });
     countItemsDisplay.textContent = `${CountItems} Items`
 }
@@ -164,8 +216,8 @@ searchInput.addEventListener('input', () => {
 
 let dropdownButton = document.querySelector(".dropdown-button");
 let dropdownMenu = document.querySelector(".dropdown-menu");
-let selectedOption = document.getElementById("selected-option");
-let arrow = document.getElementById('arrowImg');
+let selectedOption = document.querySelector(".selected-option");
+let arrow = document.querySelector('.arrow-img');
 let dropdownItems = document.querySelectorAll(".dropdown-menu .dropdown-item")
 
 // Відкривання/закривання меню
@@ -206,7 +258,7 @@ dropdownItems.forEach((item) => {
         let tovarsWhatSeeArray = Array.from(tovarsWhatSee);
         let isPriceLowHigh = event.target.textContent == "Price (Low - High)";
         let isPriceHighLow = event.target.textContent == "Price (High - Low)";
-        
+
         if (isPriceLowHigh || isPriceHighLow) {
             tovarsWhatSeeArray.sort((a, b) => {
                 let priceA = parseFloat(a.querySelector('.priceProduct').textContent.replace('$', ''));
@@ -234,29 +286,19 @@ function Sort(array) {
     let isPriceLowHigh = selectedOption.textContent == "Price (Low - High)";
     let isPriceHighLow = selectedOption.textContent == "Price (High - Low)";
 
-        if (isPriceLowHigh || isPriceHighLow) {
-            array.sort((a, b) => {
-                if (isPriceLowHigh) {
-                    return a.prise - b.prise;
-                } else if (isPriceHighLow) {
-                    return b.prise - a.prise;
-                }
-                return 0;
-            });
-        }
+    if (isPriceLowHigh || isPriceHighLow) {
+        array.sort((a, b) => {
+            if (isPriceLowHigh) {
+                return a.prise - b.prise;
+            } else if (isPriceHighLow) {
+                return b.prise - a.prise;
+            }
+            return 0;
+        });
+    }
 }
 
 logo.addEventListener("click", () => {
-    // Sort(tovars);
-    // dropdownItems.forEach((el) => {
-    //     el.classList.remove("selectedItem");
-    // });
-    // selectedOption.textContent = "Choose";
-    // selectedOption.style.color = "#333"
-
-    // let products = document.querySelector('.products');
-    // products.innerHTML = '';
-    // showProducts(tovars);
     location.reload()
 });
 
