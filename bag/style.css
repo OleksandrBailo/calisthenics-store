@@ -50,7 +50,8 @@ main {
     height: 100%;
     background-color: #F0F0F0;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     padding-top: 70px;
 }
 
@@ -164,3 +165,41 @@ main {
 .estimatedShippingPrice span {
     color: #098E00;
 } 
+
+.totalOrder {
+    margin-top: 20px;
+    width: 73.47417840375587%;
+    height: fit-content;
+    border-bottom: 1px solid #B0B0B0;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.estimatedOrder {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 22px;
+}
+
+.payment {
+    margin-top: 20px;
+    width: 73.47417840375587%;
+    height: fit-content;
+}
+
+.btnpayment {
+    height: 44px;
+    width: 100%;
+    background-color: #DC0019;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.btnpayment:hover {
+    background-color: #DC3F50;
+}

@@ -1,5 +1,8 @@
 let bag = JSON.parse(localStorage.getItem('bag')) || [];
 
+window.addEventListener('load', () => {
+    showProductsBag(bag);
+});
 
 let logo = document.querySelector('.logo')
 logo.addEventListener("click", () => {
@@ -12,25 +15,22 @@ emptyBagButton.addEventListener("click", () => {
 });
 let emptyBag = document.querySelector(".emptyBag");
 
-showProductsBag(bag);
 function showProductsBag(whatToShow) {
     emptyBag.style.display = "none";
     let products = document.querySelector('.products');
     let countItemsDisplay = document.querySelector('.items-count');
-    let countItemsOrder = document.querySelector('.inSubtotal span')
+    let countItemsOrder = document.querySelector('.inSubtotal span');
     products.innerHTML = '';
     let CountItems = 0;
+    
+    updateBagWithLocalStorage();
+
     whatToShow.forEach(tovar => {
         CountItems += tovar.howManyWantBuy;
 
-        // Підрахунок скільки разів цей товар є в масиві bag
-        let howmany = bag.filter(item => item.id == tovar.id).length; // використовуємо filter для підрахунку
-
-        console.log(howmany); // Виведемо кількість однакових товарів
-
         let product = document.createElement('div');
-        product.setAttribute('data-id', tovar.id)
-        product.classList.add('product')
+        product.setAttribute('data-id', tovar.id);
+        product.classList.add('product');
         products.appendChild(product);
         product.innerHTML = `
         <div class="img"><img src=${tovar.img} alt=""></div>
@@ -54,7 +54,8 @@ function showProductsBag(whatToShow) {
                 <div class="remove">Remove</div>
             </div>
         </div>
-        `
+        `;
+        
         let dropdownMenu = product.querySelector(".dropdown-menu");
 
         for (let i = 1; i <= tovar.count; i++) {
@@ -67,23 +68,82 @@ function showProductsBag(whatToShow) {
         }
 
         let btnRemove = product.querySelector(".remove");
-        
+
         btnRemove.addEventListener("click", () => {
             let index = bag.findIndex(item => item.id == tovar.id);
             if (index !== -1) {
                 bag.splice(index, 1);
                 localStorage.setItem('bag', JSON.stringify(bag));
+                showProductsBag(bag);
             }
-            showProductsBag(bag);
         });
     });
-    countItemsDisplay.textContent = `(${CountItems} Items)`
+
+    countItemsDisplay.textContent = `(${CountItems} Items)`;
     countItemsOrder.textContent = CountItems;
     if (CountItems == 0)
         emptyBag.style.display = "block";
+    totalPrice();
     initDropdowns();
 }
 
+function updateBagWithLocalStorage() {
+    let products = JSON.parse(localStorage.getItem('products')) || [];
+
+    // Оновлюємо кожен товар у кошику (bag)
+    bag = bag.filter(item => {
+        // Перевіряємо чи є товар у локальному сховищі
+        let productInStorage = products.find(product => product.id === item.id);
+        
+        if (!productInStorage) {
+            return false; // Якщо товар більше не існує в localStorage, то видаляємо його з кошика
+        }
+
+        // Оновлюємо товар у кошику, якщо були зміни в кількості або інших даних
+        item.prise = productInStorage.prise;
+        item.count = productInStorage.count;
+        item.category = productInStorage.category;
+        item.img = productInStorage.img;
+        item.nazva = productInStorage.nazva;
+
+
+        // Якщо кількість товару змінилася, оновлюємо
+        if (productInStorage.count < item.howManyWantBuy) {
+            item.howManyWantBuy = productInStorage.count;
+        }
+
+        return true;
+    });
+
+    localStorage.setItem('bag', JSON.stringify(bag));
+}
+
+
+function totalPrice() {
+    let subtotalPrice = document.querySelector(".subtotalPrice span");
+    let price = 0;
+    bag.forEach((tovar) => {
+        let productPrice = parseInt(tovar.prise);
+        let quantity = parseInt(tovar.howManyWantBuy);
+
+        if (!isNaN(productPrice) && !isNaN(quantity)) {
+            price += productPrice * quantity;
+        } else {
+            console.warn("Невірні дані для ціни або кількості", tovar);
+        }
+    });
+    subtotalPrice.textContent = price;
+    
+    let estimatedOrderPrice = document.querySelector(".estimatedOrderPrice span");
+    let shipping = document.querySelector(".estimatedShippingPrice span");
+    let totalPrice = 0;
+    totalPrice += price;
+    let shippingPrice = parseInt(shipping.textContent);
+    if (shipping.textContent != 'Free' || !isNaN(shippingPrice))
+        totalPrice += shippingPrice;
+
+    estimatedOrderPrice.textContent = totalPrice;
+}
 
 function initDropdowns() {
     let dropdownButtons = document.querySelectorAll(".dropdown-button");
@@ -144,6 +204,8 @@ function initDropdowns() {
 
                 spanPriceProduct.textContent = event.target.textContent;
 
+                totalPrice()
+
                 dropdownMenu.classList.remove("active");
                 arrow.style.transform = "rotate(0deg)";
                 button.style.borderRadius = "4px";
@@ -152,3 +214,26 @@ function initDropdowns() {
     });
 }
 
+let payment = document.getElementById("btnpayment");
+payment.addEventListener("click", () => {
+    let tovars = JSON.parse(localStorage.getItem('products')) || [];
+    let bag = JSON.parse(localStorage.getItem('bag')) || [];
+
+    bag.forEach(item => {
+        let productIndex = tovars.findIndex(product => product.id === item.id);
+        if (productIndex !== -1) {
+            tovars[productIndex].count -= item.howManyWantBuy;
+
+            if (tovars[productIndex].count <= 0) {
+                tovars.splice(productIndex, 1);
+            }
+        }
+    });
+    bag = [];
+
+    localStorage.setItem('products', JSON.stringify(tovars));
+    localStorage.removeItem('bag');
+    
+    alert("Оплата успішна! Ваше замовлення обробляється.");
+    showProductsBag(bag);
+});
