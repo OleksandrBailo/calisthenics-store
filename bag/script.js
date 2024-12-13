@@ -2,6 +2,7 @@ let bag = JSON.parse(localStorage.getItem('bag')) || [];
 
 window.addEventListener('load', () => {
     showProductsBag(bag);
+    renderHistory();
 });
 
 let logo = document.querySelector('.logo')
@@ -90,26 +91,21 @@ function showProductsBag(whatToShow) {
 function updateBagWithLocalStorage() {
     let products = JSON.parse(localStorage.getItem('products')) || [];
 
-    // Оновлюємо кожен товар у кошику (bag)
     bag = bag.filter(item => {
-        // Перевіряємо чи є товар у локальному сховищі
-        let productInStorage = products.find(product => product.id === item.id);
+        let productInStorage = products.find(product => product.id === item.id && product.howManyWantBuy !== 0);
         
         if (!productInStorage) {
             return false; // Якщо товар більше не існує в localStorage, то видаляємо його з кошика
         }
 
-        // Оновлюємо товар у кошику, якщо були зміни в кількості або інших даних
-        item.prise = productInStorage.prise;
-        item.count = productInStorage.count;
+        item.prise = parseInt(productInStorage.prise);
+        item.count = parseInt(productInStorage.count);
         item.category = productInStorage.category;
         item.img = productInStorage.img;
         item.nazva = productInStorage.nazva;
 
-
-        // Якщо кількість товару змінилася, оновлюємо
         if (productInStorage.count < item.howManyWantBuy) {
-            item.howManyWantBuy = productInStorage.count;
+            item.howManyWantBuy = parseInt(productInStorage.count);
         }
 
         return true;
@@ -218,22 +214,80 @@ let payment = document.getElementById("btnpayment");
 payment.addEventListener("click", () => {
     let tovars = JSON.parse(localStorage.getItem('products')) || [];
     let bag = JSON.parse(localStorage.getItem('bag')) || [];
+    let history = JSON.parse(localStorage.getItem('history')) || []; // Історія покупок
+
+    let purchase = {
+        date: new Date().toLocaleString(),
+        items: bag.map(item => ({
+            id: item.id,
+            nazva: item.nazva,
+            img: item.img,
+            prise: item.prise,
+            howManyWantBuy: item.howManyWantBuy,
+        })),
+    };
+
+    history.push(purchase);
+    localStorage.setItem('history', JSON.stringify(history));
 
     bag.forEach(item => {
         let productIndex = tovars.findIndex(product => product.id === item.id);
         if (productIndex !== -1) {
             tovars[productIndex].count -= item.howManyWantBuy;
 
+            tovars[productIndex].howManyWantBuy = 0;
+
             if (tovars[productIndex].count <= 0) {
                 tovars.splice(productIndex, 1);
             }
         }
     });
-    bag = [];
 
+    bag = [];
     localStorage.setItem('products', JSON.stringify(tovars));
     localStorage.removeItem('bag');
-    
+
     alert("Оплата успішна! Ваше замовлення обробляється.");
-    showProductsBag(bag);
+
+    showProductsBag(bag); // Оновлюємо відображення кошика
+    renderHistory(); // Відображаємо оновлену історію
 });
+
+
+function renderHistory() {
+    let historyContainer = document.querySelector(".historyPayment");
+    let history = JSON.parse(localStorage.getItem('history')) || [];
+    historyContainer.innerHTML = '';
+
+    if (history.length === 0) {
+        historyContainer.innerHTML = "<p>No purchase history available.</p>";
+        return;
+    }
+
+    history.forEach((purchase, index) => {
+        let totalOrderPrice = purchase.items.reduce((total, item) => {
+            return total + item.prise * item.howManyWantBuy;
+        }, 0);
+
+        let historyItem = document.createElement('div');
+        historyItem.classList.add('history-item');
+        historyItem.innerHTML = `
+            <div class="history-date">Purchase #${index + 1} - ${purchase.date} | Total Price: $${totalOrderPrice.toFixed(2)}</div>
+            <div class="history-products">
+                ${purchase.items.map(item => `
+                    <div class="history-product">
+                        <div class="img"><img class="history-img" src=${item.img} alt="${item.nazva}" ></div>
+                        <div class="history-details">
+                            <div class="historyNamePrice">
+                                <div class="history-name">${item.nazva}</div>
+                                <div class="history-price">$${item.prise} x <span>${item.howManyWantBuy}</span></div>
+                            </div>
+                            <div class="history-quantity">Quantity: ${item.howManyWantBuy}</div>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        historyContainer.appendChild(historyItem);
+    });
+}

@@ -143,27 +143,24 @@ function showProducts(whatToShow) {
         addToBag.addEventListener("click", () => {
             bag = JSON.parse(localStorage.getItem('bag')) || [];
         
-            // Перевіряємо, чи товар уже в кошику
             const existingItemIndex = bag.findIndex(item => item.id === tovar.id);
         
             if (existingItemIndex !== -1) {
-                // Товар є в кошику, оновлюємо його кількість
                 if (bag[existingItemIndex].howManyWantBuy + 1 <= tovar.count) {
                     bag[existingItemIndex].howManyWantBuy++;
+                    tovar.howManyWantBuy++;
                 } else if (bag[existingItemIndex].howManyWantBuy == tovar.count) {
-                    alert("Це був останній. Товару не можна додати більше, ніж є в наявності!");
+                    alert("Більше товарів не можна додати, такої кількості немає в наявності!");
                 }
             } else {
-                // Додаємо новий товар до кошика
                 if (tovar.howManyWantBuy + 1 <= tovar.count) {
-                    tovar.howManyWantBuy = 1; // Встановлюємо кількість для нового товару
+                    tovar.howManyWantBuy = 1;
                     bag.push({ ...tovar });
                 } else {
                     alert("Товар уже закінчився!");
                 }
             }
         
-            // Оновлюємо дані у LocalStorage
             localStorage.setItem('bag', JSON.stringify(bag));
             localStorage.setItem('products', JSON.stringify(tovars));
         });
