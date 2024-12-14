@@ -25,6 +25,10 @@ main {
 .addButton:hover {
     background-color: #5d5d5d;
 }
+.addButton:active {
+    background-color: #3d3d3d;
+    transform: scale(0.95);
+}
 
 
 .modal {
@@ -56,6 +60,15 @@ main {
     right: 15px;
     font-size: 20px;
     cursor: pointer;
+}
+
+.close-button:hover {
+    color: #5d5d5d;
+}
+
+.close-button:active {
+    color: #3d3d3d;
+    transform: scale(0.95);
 }
 
 .form-group {
@@ -114,6 +127,12 @@ label {
 .custom-file-upload-Edit:hover, .custom-file-upload-Add:hover {
     background-color: #5D5D5D;
 }
+.custom-file-upload-Edit:active, .custom-file-upload-Add:active {
+    background-color: #3d3d3d;
+    transform: scale(0.95);
+}
+
+
 
 .submitButton {
     background-color: #1d1d1d;
@@ -128,6 +147,12 @@ label {
 .submitButton:hover {
     background-color: #5D5D5D;
 }
+.submitButton:active {
+    background-color: #3d3d3d;
+    transform: scale(0.95);
+}
+
+
 
 
 table {
@@ -177,10 +202,10 @@ td img {
     background-color: #5d5d5d;
 }
 
-.action-buttons button:hover {
-    opacity: 0.8;
+.action-buttons .edit:active, .action-buttons .delete:active {
+    background-color: #3d3d3d;
+    transform: scale(0.95);
 }
-
 
 .FlexVertical {
     display: flex;

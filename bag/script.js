@@ -15,6 +15,8 @@ emptyBagButton.addEventListener("click", () => {
     window.location.href = '/index.html';
 });
 let emptyBag = document.querySelector(".emptyBag");
+let confirmationModal = document.getElementById("confirmationModal");
+let currentProductToRemove;
 
 function showProductsBag(whatToShow) {
     emptyBag.style.display = "none";
@@ -24,6 +26,7 @@ function showProductsBag(whatToShow) {
     products.innerHTML = '';
     let CountItems = 0;
     
+    updateCartQuantity()
     updateBagWithLocalStorage();
 
     whatToShow.forEach(tovar => {
@@ -71,12 +74,14 @@ function showProductsBag(whatToShow) {
         let btnRemove = product.querySelector(".remove");
 
         btnRemove.addEventListener("click", () => {
-            let index = bag.findIndex(item => item.id == tovar.id);
-            if (index !== -1) {
-                bag.splice(index, 1);
-                localStorage.setItem('bag', JSON.stringify(bag));
-                showProductsBag(bag);
-            }
+            currentProductToRemove = tovar;
+            confirmationModal.style.display = "block";
+        });
+
+        let productImg = product.querySelector("img")
+        productImg.addEventListener("click", () => {
+            localStorage.setItem("selectedProduct", JSON.stringify(tovar));
+            window.location.href = "/product/product.html";
         });
     });
 
@@ -87,6 +92,21 @@ function showProductsBag(whatToShow) {
     totalPrice();
     initDropdowns();
 }
+
+function updateCartQuantity() {
+    let bag = JSON.parse(localStorage.getItem('bag')) || [];
+    
+    let qntInBag = document.querySelector('.qntInBag span');
+    let totalQuantity = bag.reduce((total, item) => total + item.howManyWantBuy, 0);
+    
+    if (totalQuantity > 0) {
+        qntInBag.textContent = totalQuantity;
+        document.querySelector('.qntInBag').style.display = 'flex';
+    } else {
+        document.querySelector('.qntInBag').style.display = 'none';
+    }
+}
+
 
 function updateBagWithLocalStorage() {
     let products = JSON.parse(localStorage.getItem('products')) || [];
@@ -200,6 +220,7 @@ function initDropdowns() {
 
                 spanPriceProduct.textContent = event.target.textContent;
 
+                updateCartQuantity()
                 totalPrice()
 
                 dropdownMenu.classList.remove("active");
@@ -209,6 +230,44 @@ function initDropdowns() {
         });
     });
 }
+
+
+let closeButton = document.getElementById("closeButton")
+let confirmButton = document.getElementById("confirmButton");
+let cancelButton = document.getElementById("cancelButton");
+
+closeButton.addEventListener("click", ()=> {
+    confirmationModal.style.display = "none";
+});
+window.addEventListener("click", (event) => {
+    if (event.target === confirmationModal) {
+        confirmationModal.style.display = "none";
+    }
+});
+
+confirmButton.addEventListener("click", ()=> {
+    if (currentProductToRemove)
+    {
+        let index = bag.findIndex(item => item.id == currentProductToRemove.id);
+        if (index !== -1) {
+            let products = JSON.parse(localStorage.getItem('products')) || [];
+            let productIndex = products.findIndex(product => product.id === currentProductToRemove.id);
+            if (productIndex !== -1) {
+                products[productIndex].howManyWantBuy = 0;
+                localStorage.setItem('products', JSON.stringify(products));
+            }
+    
+            bag.splice(index, 1);
+            localStorage.setItem('bag', JSON.stringify(bag));
+            showProductsBag(bag);
+        }
+    }
+    confirmationModal.style.display = "none";
+});
+
+cancelButton.addEventListener("click", ()=> {
+    confirmationModal.style.display = "none";
+});
 
 let payment = document.getElementById("btnpayment");
 payment.addEventListener("click", () => {

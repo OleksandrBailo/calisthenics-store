@@ -91,9 +91,26 @@ input:focus::placeholder {
 
 .icon a {
     height: 16px;
+    position: relative;
 }
 
 .icon img {
     width: 16px;
     height: 16px;
+}
+
+.icon .qntInBag {
+    display: none;
+    background-color: red;
+    color: #ffffff;
+    font-size: 10px;
+    width: 15px;
+    height: 15px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: -8px;
+    right: -8px;
 }

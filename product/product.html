@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="/styles/header.css">
 </head>
+
 <body>
     <header>
         <div class="inHeader">
@@ -26,12 +28,79 @@
                 </div>
                 <div class="icon"><a href="/admin/adminpanel.html"><img src="/imgs/Profile icon.png" alt="profileIcon"></a></div>
                 <!-- <div class="icon"><img src="/imgs/Folowed icon.png" alt="folowedIcon"></div> -->
-                <div class="icon"><a href="/bag/bag.html"><img src="/imgs/Bag icon.png" alt="BagIcon"></div></a></div>
+                <div class="icon"><a href="/bag/bag.html" id="iconBag"><img src="/imgs/Bag icon.png" alt="BagIcon"><div class="qntInBag"><span>0</span></div></a></div>
             </div>
         </div>
     </header>
+    <main>
 
+
+        <div class="product">
+            <img id="productImage" src="/imgs/baselayer-white-front-dynamic.webp" alt="">
+            <div class="detail">
+                <div class="nameProduct" id="productName">Performance Baselayer Men</div>
+                <div class="price-rating">
+                    <div class="price">$<span id="productPrice">31</span></div>
+                    <div class="ratingSummury">
+                        <div class="starsSummury" style="--rating: 4.3;"></div>
+                        <span class="rating-valueSummury">4.3 (15)</span>
+                    </div>
+                </div>
+                <div class="amount">Amount: <span id="productAmount">21</span></div>
+            </div>
+        </div>
+
+        <div class="Reviews-section">
+            <div class="titleAndButton">
+                <div class="ReviewsTitle">Product Reviews</div>
+                <input id="writeReviews" type="button" value="Write A Reviews">
+            </div>
+            <div id="Reviews">
+                <div class="Review">
+                    <div class="topOfReview">
+                        <div class="displayNameReview">Antonio</div>
+                        <div class="ratingReview">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                        <div class="dateReview">14.04.2024</div>
+                    </div>
+                    <div class="titleReview">Amazing product!</div>
+                    <div class="textReview">This is a placeholder for a customer review.</div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal" id="review-modal">
+            <div class="modal-content">
+                <span class="modal-close" id="close-modal">&times;</span>
+                <div class="modal-header">Write a Review</div>
+    
+                <label for="rating">Overall Rating</label>
+                <div class="rating-stars" id="rating-stars">
+                    <span data-value="1">&#9733;</span>
+                    <span data-value="2">&#9733;</span>
+                    <span data-value="3">&#9733;</span>
+                    <span data-value="4">&#9733;</span>
+                    <span data-value="5">&#9733;</span>
+                </div>
+    
+                <label for="review-title">Review Title</label>
+                <input type="text" id="review-title" placeholder="Example: This product has great features">
+    
+                <label for="review">Review</label>
+                <textarea id="review" rows="4" placeholder="Write at least 50 characters..."></textarea>
+    
+                <label for="display-name">Display Name</label>
+                <input type="text" id="display-name" placeholder="Example: bob27">
+    
+                <div class="button-group">
+                    <button class="cancel" id="cancel-modal">Cancel</button>
+                    <button class="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </main>
 
     <script src="script.js"></script>
 </body>
+
 </html>

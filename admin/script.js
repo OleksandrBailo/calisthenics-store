@@ -1,3 +1,6 @@
+window.addEventListener('load', () => {
+    updateCartQuantity();
+});
 let tovars = [
     {
         id: "0",
@@ -96,6 +99,69 @@ let tovars = [
         category: "Women",
         count: 12,
         prise: 44,
+        howManyWantBuy: 0
+    },
+    {
+        id: "0",
+        img: "/imgs/pull-up-bar-multi-4.webp",
+        nazva: "Pull Up Bar Multi",
+        category: "Equipment",
+        count: 16,
+        prise: 87,
+        howManyWantBuy: 0
+    },
+    {
+        id: "0",
+        img: "/imgs/1-gornation-static-bar.webp",
+        nazva: "Static Bar",
+        category: "Equipment",
+        count: 10,
+        prise: 163,
+        howManyWantBuy: 0
+    },
+    {
+        id: "0",
+        img: "/imgs/abwheel-1.webp",
+        nazva: "Ab Wheel",
+        category: "Equipment",
+        count: 24,
+        prise: 22,
+        howManyWantBuy: 0
+    },
+    {
+        id: "0",
+        img: "/imgs/Workout-Grips-Leather-GORNATION-34966769-34966795-34966785.webp",
+        nazva: "Workout Grips Leather",
+        category: "Accessories",
+        count: 22,
+        prise: 28,
+        howManyWantBuy: 0
+    },
+    {
+        id: "0",
+        img: "/imgs/softgriptape_bec474ac-621c-4089-93bd-abcdc45da81b.webp",
+        nazva: "Soft Grip Tape",
+        category: "Accessories",
+        count: 36,
+        prise: 11,
+        howManyWantBuy: 0
+    },
+    {
+        id: "0",
+        img: "/imgs/Performance-Baselayer-Black-2.webp",
+        nazva: "Performance Baselayer Men",
+        category: "Men",
+        count: 16,
+        prise: 31,
+        howManyWantBuy: 0
+    },
+    {
+        id: "0",
+        img: "/imgs/calisthenics-mesh-shirt-black-front-view-woman.webp",
+        nazva: "Mesh Shirt Women",
+        category: "Women",
+        count: 12,
+        prise: 33,
         howManyWantBuy: 0
     }
 ]
@@ -262,6 +328,48 @@ navItems.forEach((item) => {
         showProductsAdmin(filteredTovars);
     });
 });
+
+function updateCartQuantity() {
+    updateBagWithLocalStorage()
+    let bag = JSON.parse(localStorage.getItem('bag')) || [];
+    
+    let qntInBag = document.querySelector('.qntInBag span');
+    let totalQuantity = bag.reduce((total, item) => total + item.howManyWantBuy, 0);
+    
+    if (totalQuantity > 0) {
+        qntInBag.textContent = totalQuantity;
+        document.querySelector('.qntInBag').style.display = 'flex';
+    } else {
+        document.querySelector('.qntInBag').style.display = 'none';
+    }
+}
+
+function updateBagWithLocalStorage() {
+    let products = JSON.parse(localStorage.getItem('products')) || [];
+    let bag = JSON.parse(localStorage.getItem('bag')) || [];
+
+    bag = bag.filter(item => {
+        let productInStorage = products.find(product => product.id === item.id && product.howManyWantBuy !== 0);
+        
+        if (!productInStorage) {
+            return false; // Якщо товар більше не існує в localStorage, то видаляємо його з кошика
+        }
+
+        item.prise = parseInt(productInStorage.prise);
+        item.count = parseInt(productInStorage.count);
+        item.category = productInStorage.category;
+        item.img = productInStorage.img;
+        item.nazva = productInStorage.nazva;
+
+        if (productInStorage.count < item.howManyWantBuy) {
+            item.howManyWantBuy = parseInt(productInStorage.count);
+        }
+
+        return true;
+    });
+
+    localStorage.setItem('bag', JSON.stringify(bag));
+}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 showProductsAdmin(tovars);
@@ -294,6 +402,7 @@ function showProductsAdmin(whatToShow) {
             if (index !== -1) {
                 tovars.splice(index, 1);
                 localStorage.setItem('products', JSON.stringify(tovars));
+                updateCartQuantity();
                 showProductsAdmin(tovars);
             }
         });
@@ -475,6 +584,7 @@ editForm.addEventListener("submit", (event) => {
 
 function saveAndReload() {
     localStorage.setItem('products', JSON.stringify(tovars));
+    updateCartQuantity()
     showProductsAdmin(tovars);
     EditModal.style.display = "none";
 }

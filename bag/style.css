@@ -34,6 +34,11 @@ main {
     background-color: #5d5d5d;
 }
 
+.emptyBagButton:active {
+    background-color: #3d3d3d;
+    transform: scale(0.95);
+}
+
 .inMain {
     display: flex;
     width: 94.44444444%;
@@ -85,36 +90,47 @@ main {
     margin-top: 40px;
 }
 
-.product, .history-product {
+.product,
+.history-product {
     display: flex;
     gap: 1.864035%;
     padding-bottom: 20px;
 }
 
-.products .product:last-child, .history-products .history-product:last-child {
+.products .product:last-child,
+.history-products .history-product:last-child {
     border-bottom: none;
 }
 
-.product .img, .history-product .img {
+.product .img,
+.history-product .img {
     width: 22.8070175438%;
 }
 
-.product .img img, .history-product .img img {
+.product .img img,
+.history-product .img img {
     width: 100%;
     height: auto;
     object-fit: contain;
 }
 
+.product .img img {
+    cursor: pointer;
+}
+
 .detail {
     justify-content: space-between;
 }
-.detail, .history-details {
+
+.detail,
+.history-details {
     width: 75.328947368%;
     display: flex;
     flex-direction: column;
 }
 
-.namePrice, .historyNamePrice {
+.namePrice,
+.historyNamePrice {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -126,7 +142,8 @@ main {
     font-size: 12px;
     color: #5d5d5d;
 }
-.countProduct span{
+
+.countProduct span {
     font-weight: 600;
 }
 
@@ -136,10 +153,113 @@ main {
     justify-content: space-between;
     align-items: end;
 }
+
 .remove {
     font-size: 14px;
-    color: #5d5d5d;
+    color: #3d3d3d;
     cursor: pointer;
+    margin-bottom: 1px;
+}
+
+.remove:hover {
+    color: #5d5d5d;
+    border-bottom: 2px solid #5d5d5d;
+    margin-bottom: 0px;
+}
+
+.remove:active {
+    color: #3d3d3d;
+    border-bottom: 2px solid #3d3d3d;
+    margin-bottom: 0px;
+}
+
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px 30px;
+    border: 1px solid #888;
+    width: 30%;
+    position: relative;
+}
+
+.modal .close {
+    color: #1d1d1d;
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.modal .close:hover {
+    color: #5d5d5d;
+}
+.modal .close:active {
+    color: #3d3d3d;
+    transform: scale(0.95);
+}
+
+.modal .confirmationText {
+    font-weight: 600;
+}
+
+.modal .confirmationButtons {
+    display: flex;
+    gap: 10%;
+}
+
+.modal .cancelButton {
+    height: 44px;
+    width: 45%;
+    margin-top: 20px;
+    background-color: #fff;
+    color: #1d1d1d;
+    padding: 10px 20px;
+    border: 1px solid #1d1d1d;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.modal .cancelButton:hover {
+    color: #5d5d5d;
+    border: 1px solid #5d5d5d;
+}
+.modal .cancelButton:active {
+    color: #3d3d3d;
+    border: 1px solid #3d3d3d;
+    transform: scale(0.95);
+}
+
+.modal .confirmButton {
+    height: 44px;
+    width: 45%;
+    margin-top: 20px;
+    background-color: #1d1d1d;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.modal .confirmButton:hover {
+    background-color: #5d5d5d;
+}
+.modal .confirmButton:active {
+    background-color: #3d3d3d;
+    transform: scale(0.95);
 }
 
 
@@ -160,16 +280,20 @@ main {
 .subtotal {
     margin-bottom: 8px;
 }
-.subtotal, .estimatedShipping {
+
+.subtotal,
+.estimatedShipping {
     display: flex;
     justify-content: space-between;
 }
+
 .estimatedShipping {
     margin-bottom: 22px;
 }
+
 .estimatedShippingPrice span {
     color: #098E00;
-} 
+}
 
 .totalOrder {
     margin-top: 20px;
@@ -209,6 +333,11 @@ main {
     background-color: #DC3F50;
 }
 
+.btnpayment:active {
+    background-color: #DC3244;
+    transform: scale(0.95);
+}
+
 
 .History {
     margin-top: 40px;
@@ -216,9 +345,10 @@ main {
     width: 100%;
     border-bottom: 1px solid #B0B0B0;
 }
+
 .historyTitle {
     font-family: 'Lato';
-    font-size: 32px;
+    font-size: 24px;
     font-weight: 900;
 }
 

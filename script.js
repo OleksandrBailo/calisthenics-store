@@ -1,3 +1,7 @@
+window.addEventListener('load', () => {
+    updateCartQuantity();
+});
+
 let tovars = [
     {
         id: "0",
@@ -97,6 +101,69 @@ let tovars = [
         count: 12,
         prise: 44,
         howManyWantBuy: 0
+    },
+    {
+        id: "0",
+        img: "/imgs/pull-up-bar-multi-4.webp",
+        nazva: "Pull Up Bar Multi",
+        category: "Equipment",
+        count: 16,
+        prise: 87,
+        howManyWantBuy: 0
+    },
+    {
+        id: "0",
+        img: "/imgs/1-gornation-static-bar.webp",
+        nazva: "Static Bar",
+        category: "Equipment",
+        count: 10,
+        prise: 163,
+        howManyWantBuy: 0
+    },
+    {
+        id: "0",
+        img: "/imgs/abwheel-1.webp",
+        nazva: "Ab Wheel",
+        category: "Equipment",
+        count: 24,
+        prise: 22,
+        howManyWantBuy: 0
+    },
+    {
+        id: "0",
+        img: "/imgs/Workout-Grips-Leather-GORNATION-34966769-34966795-34966785.webp",
+        nazva: "Workout Grips Leather",
+        category: "Accessories",
+        count: 22,
+        prise: 28,
+        howManyWantBuy: 0
+    },
+    {
+        id: "0",
+        img: "/imgs/softgriptape_bec474ac-621c-4089-93bd-abcdc45da81b.webp",
+        nazva: "Soft Grip Tape",
+        category: "Accessories",
+        count: 36,
+        prise: 11,
+        howManyWantBuy: 0
+    },
+    {
+        id: "0",
+        img: "/imgs/Performance-Baselayer-Black-2.webp",
+        nazva: "Performance Baselayer Men",
+        category: "Men",
+        count: 16,
+        prise: 31,
+        howManyWantBuy: 0
+    },
+    {
+        id: "0",
+        img: "/imgs/calisthenics-mesh-shirt-black-front-view-woman.webp",
+        nazva: "Mesh Shirt Women",
+        category: "Women",
+        count: 12,
+        prise: 33,
+        howManyWantBuy: 0
     }
 ]
 
@@ -140,33 +207,60 @@ function showProducts(whatToShow) {
                 <div class="priceProduct">$${tovar.prise}</div>
         `
         let addToBag = product.querySelector(".addToBag");
-        addToBag.addEventListener("click", () => {
-            bag = JSON.parse(localStorage.getItem('bag')) || [];
-        
-            const existingItemIndex = bag.findIndex(item => item.id === tovar.id);
-        
-            if (existingItemIndex !== -1) {
-                if (bag[existingItemIndex].howManyWantBuy + 1 <= tovar.count) {
-                    bag[existingItemIndex].howManyWantBuy++;
-                    tovar.howManyWantBuy++;
-                } else if (bag[existingItemIndex].howManyWantBuy == tovar.count) {
-                    alert("Більше товарів не можна додати, такої кількості немає в наявності!");
-                }
-            } else {
-                if (tovar.howManyWantBuy + 1 <= tovar.count) {
-                    tovar.howManyWantBuy = 1;
-                    bag.push({ ...tovar });
-                } else {
-                    alert("Товар уже закінчився!");
-                }
-            }
-        
-            localStorage.setItem('bag', JSON.stringify(bag));
-            localStorage.setItem('products', JSON.stringify(tovars));
+        addToBag.addEventListener("click", (event) => {
+            event.stopPropagation();
+            addToCart(tovar);
+        });
+
+        product.addEventListener("click", () => {
+            localStorage.setItem("selectedProduct", JSON.stringify(tovar));
+            window.location.href = "/product/product.html";
         });
     });
     countItemsDisplay.textContent = `${CountItems} Items`
 }
+
+function addToCart(tovar) {
+    bag = JSON.parse(localStorage.getItem('bag')) || [];
+        
+    const existingItemIndex = bag.findIndex(item => item.id === tovar.id);
+
+    if (existingItemIndex !== -1) {
+        if (bag[existingItemIndex].howManyWantBuy + 1 <= tovar.count) {
+            bag[existingItemIndex].howManyWantBuy++;
+            tovar.howManyWantBuy++;
+        } else if (bag[existingItemIndex].howManyWantBuy == tovar.count) {
+            alert("Більше товарів не можна додати, такої кількості немає в наявності!");
+        }
+    } else {
+        if (tovar.howManyWantBuy + 1 <= tovar.count) {
+            tovar.howManyWantBuy = 1;
+            bag.push({ ...tovar });
+        } else {
+            alert("Товар уже закінчився!");
+        }
+    }
+
+    localStorage.setItem('bag', JSON.stringify(bag));
+    localStorage.setItem('products', JSON.stringify(tovars));
+
+    updateCartQuantity();
+}
+
+function updateCartQuantity() {
+    let bag = JSON.parse(localStorage.getItem('bag')) || [];
+    
+    let qntInBag = document.querySelector('.qntInBag span');
+    let totalQuantity = bag.reduce((total, item) => total + item.howManyWantBuy, 0);
+    
+    if (totalQuantity > 0) {
+        qntInBag.textContent = totalQuantity;
+        document.querySelector('.qntInBag').style.display = 'flex';
+    } else {
+        document.querySelector('.qntInBag').style.display = 'none';
+    }
+}
+
 
 let searchInput = document.getElementById('searchInput');
 

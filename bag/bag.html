@@ -27,10 +27,9 @@
                         <div class="icon Search"><img src="/imgs/Search icon.png" alt="searchIcon"></div>
                     </div>
                 </div>
-                <div class="icon"><a href="/admin/adminpanel.html"><img src="/imgs/Profile icon.png"
-                            alt="profileIcon"></a></div>
+                <div class="icon"><a href="/admin/adminpanel.html"><img src="/imgs/Profile icon.png" alt="profileIcon"></a></div>
                 <!-- <div class="icon"><img src="/imgs/Folowed icon.png" alt="folowedIcon"></div> -->
-                <div class="icon"><a href="/bag/bag.html"><img src="/imgs/Bag icon.png" alt="BagIcon"></div></a>
+                <div class="icon"><a href="/bag/bag.html" id="iconBag"><img src="/imgs/Bag icon.png" alt="BagIcon"><div class="qntInBag"><span>0</span></div></a></div>
             </div>
         </div>
     </header>
@@ -54,6 +53,16 @@
 
                 </div>
 
+                <div id="confirmationModal" class="modal">
+                    <div class="modal-content">
+                        <span id="closeButton" class="close">x</span>
+                        <div class="confirmationText">Are you sure you want to remove this item?</div>
+                        <div class="confirmationButtons">
+                            <input id="cancelButton" class="cancelButton" type="button" value="Nevermind">
+                            <input id="confirmButton" class="confirmButton" type="button" value="Remove Item">
+                        </div>
+                    </div>
+                </div>
 
                 <div class="History">
                     <span class="historyTitle">History</span>
