@@ -311,7 +311,6 @@ let selectedOption = document.querySelector(".selected-option");
 let arrow = document.querySelector('.arrow-img');
 let dropdownItems = document.querySelectorAll(".dropdown-menu .dropdown-item")
 
-// Відкривання/закривання меню
 dropdownButton.addEventListener("click", () => {
     dropdownMenu.classList.toggle("active");
     if (dropdownMenu.classList.contains("active")) {
@@ -323,7 +322,6 @@ dropdownButton.addEventListener("click", () => {
     }
 });
 
-// Закривання меню при кліку поза ним
 document.addEventListener("click", (event) => {
     if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
         dropdownMenu.classList.remove("active");

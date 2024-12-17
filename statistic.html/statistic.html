@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>statistic_Lab_6-7</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/styles/header.css">
+</head>
+
+<body>
+    <header>
+        <div class="inHeader">
+            <div class="logo"><img src="/imgs/IconsAndLogo/LOGOmain-removebg-preview.png" alt=""></div>
+            <nav class="navHeader">
+                <div class="navItem">Men</div>
+                <div class="navItem">Women</div>
+                <div class="navItem">Equipment</div>
+                <div class="navItem">Accessories</div>
+            </nav>
+            <div class="searchAndIcons">
+                <div class="aboveSearchBox">
+                    <div class="searchBox">
+                        <input id="searchInput" type="text" placeholder="Search">
+                        <div class="icon Search"><img src="/imgs/IconsAndLogo/Search icon.png" alt="searchIcon"></div>
+                    </div>
+                </div>
+                <div class="icon"><a href="/admin/adminpanel.html"><img src="/imgs/IconsAndLogo/Profile icon.png"
+                            alt="profileIcon"></a></div>
+                <!-- <div class="icon"><img src="/imgs/Folowed icon.png" alt="folowedIcon"></div> -->
+                <div class="icon"><a href="/bag/bag.html" id="iconBag"><img src="/imgs/IconsAndLogo/Bag icon.png"
+                            alt="bagIcon">
+                        <div class="qntInBag"><span>0</span></div>
+                    </a></div>
+                <div class="icon"><a href="/statistic.html/statistic.html"><img
+                            src="/imgs/IconsAndLogo/Statistic icon.png" alt="statisticIcon"></a></div>
+            </div>
+        </div>
+    </header>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <main>
+        <div class="forChart">
+            <div class="ChartBox">
+                <canvas id="Chart"></canvas>
+            </div>
+        </div>
+        <div class="buttonsStatistic">
+            <button class="lineChartBtn" id="lineChartBtn">Line graph</button>
+            <button class="barChartBtn" id="barChartBtn">Histogram</button>
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

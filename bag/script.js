@@ -26,8 +26,7 @@ function showProductsBag(whatToShow) {
     products.innerHTML = '';
     let CountItems = 0;
     
-    updateCartQuantity()
-    updateBagWithLocalStorage();
+    updateCartQuantity();
 
     whatToShow.forEach(tovar => {
         CountItems += tovar.howManyWantBuy;
@@ -106,34 +105,6 @@ function updateCartQuantity() {
         document.querySelector('.qntInBag').style.display = 'none';
     }
 }
-
-
-function updateBagWithLocalStorage() {
-    let products = JSON.parse(localStorage.getItem('products')) || [];
-
-    bag = bag.filter(item => {
-        let productInStorage = products.find(product => product.id === item.id && product.howManyWantBuy !== 0);
-        
-        if (!productInStorage) {
-            return false; // Якщо товар більше не існує в localStorage, то видаляємо його з кошика
-        }
-
-        item.prise = parseInt(productInStorage.prise);
-        item.count = parseInt(productInStorage.count);
-        item.category = productInStorage.category;
-        item.img = productInStorage.img;
-        item.nazva = productInStorage.nazva;
-
-        if (productInStorage.count < item.howManyWantBuy) {
-            item.howManyWantBuy = parseInt(productInStorage.count);
-        }
-
-        return true;
-    });
-
-    localStorage.setItem('bag', JSON.stringify(bag));
-}
-
 
 function totalPrice() {
     let subtotalPrice = document.querySelector(".subtotalPrice span");

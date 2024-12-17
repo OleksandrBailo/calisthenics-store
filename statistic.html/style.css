@@ -1,0 +1,34 @@
+.forChart {
+    display: flex;
+    justify-content: center;
+}
+
+.ChartBox {
+    width: 90%;
+}
+
+.buttonsStatistic {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 30px 0px 60px;
+}
+
+.barChartBtn, .lineChartBtn {
+    height: 44px;
+    background-color: #1d1d1d;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.barChartBtn:hover, .lineChartBtn:hover {
+    background-color: #5d5d5d;
+}
+
+.barChartBtn:active, .lineChartBtn:active {
+    background-color: #3d3d3d;
+    transform: scale(0.95);
+}
