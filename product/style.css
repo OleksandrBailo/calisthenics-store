@@ -7,13 +7,18 @@ main {
 .product {
     margin-top: 20px;
     display: flex;
-    width: 1116px;
+    width: 77.5%;
     gap: 30px;
 }
 
+.product .img {
+    width: 43.18996415770609%;
+    height: 53.9426523297491%;
+}
 .product img {
-    width: 482px;
-    height: 602px;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
 }
 
 .detail {
@@ -99,7 +104,7 @@ main {
 }
 
 .Reviews-section {
-    width: 1116px;
+    width: 77.5%;
     margin-bottom: 20px;
 }
 

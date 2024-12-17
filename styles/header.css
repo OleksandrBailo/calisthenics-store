@@ -46,10 +46,6 @@ header {
 
 .searchAndIcons {
     font-weight: 500;
-    /* position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 0px; */
     height: 100%;
     color: #B0B0B0;
     display: flex;
