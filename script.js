@@ -201,7 +201,7 @@ function showProducts(whatToShow) {
         products.appendChild(product);
         product.innerHTML = `
                 <div class="img"><img src=${tovar.img} alt=""></div>
-                <div class="addToBag"><img src="/imgs/Add to Bag.png" alt=""></div>
+                <div class="addToBag"><img src="/imgs/IconsAndLogo/Add to Bag.png" alt=""></div>
                 <div class="nameProduct">${tovar.nazva}</div>
                 <div class="countProduct">Amount: ${tovar.count}</div>
                 <div class="priceProduct">$${tovar.prise}</div>

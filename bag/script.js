@@ -246,6 +246,11 @@ payment.addEventListener("click", () => {
     let bag = JSON.parse(localStorage.getItem('bag')) || [];
     let history = JSON.parse(localStorage.getItem('history')) || []; // Історія покупок
 
+    if (bag.length === 0) {
+        alert("Your bag is empty! Please add items to your bag before proceeding to payment.");
+        return;
+    }
+    
     let purchase = {
         date: new Date().toLocaleString(),
         items: bag.map(item => ({
