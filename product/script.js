@@ -1,6 +1,6 @@
 let logo = document.querySelector('.logo')
 logo.addEventListener("click", () => {
-    window.location.href = '/index.html';
+    window.location.href = '../index.html';
 });
 window.addEventListener('load', () => {
     updateCartQuantity();
@@ -9,7 +9,9 @@ window.addEventListener('load', () => {
 // Отримуємо дані поточного товару
 const selectedProduct = JSON.parse(localStorage.getItem("selectedProduct"));
 if (selectedProduct) {
-    document.getElementById("productImage").src = selectedProduct.img;
+    document.getElementById("productImage").src = selectedProduct.img.startsWith('data:') 
+    ? selectedProduct.img 
+    : '../' + selectedProduct.img;
     document.getElementById("productName").textContent = selectedProduct.nazva;
     document.getElementById("productPrice").textContent = selectedProduct.prise;
     document.getElementById("productAmount").textContent = selectedProduct.count;
@@ -18,7 +20,7 @@ if (selectedProduct) {
     loadComments(selectedProduct.id);
 } else {
     alert("No product selected!");
-    window.location.href = "/";
+    window.location.href = "../index.html";
 }
 
 // Завантаження коментарів для товару

@@ -5,7 +5,7 @@ window.addEventListener('load', () => {
 let tovars = [
     {
         id: "0",
-        img: "/imgs/product-shot-wooden-parallettes-extended-2_91945174-2e6b-43e3-b101-1cf692ed68c2.webp",
+        img: "imgs/product-shot-wooden-parallettes-extended-2_91945174-2e6b-43e3-b101-1cf692ed68c2.webp",
         nazva: "Wooden Parallettes",
         category: "Equipment",
         count: 20,
@@ -14,7 +14,7 @@ let tovars = [
     },
     {
         id: "0",
-        img: "/imgs/premium-parallettes-max-product-photo.webp",
+        img: "imgs/premium-parallettes-max-product-photo.webp",
         nazva: "Premium Parallettes Max",
         category: "Equipment",
         count: 10,
@@ -23,7 +23,7 @@ let tovars = [
     },
     {
         id: "0",
-        img: "/imgs/gornation-metal-parallettes-1.webp",
+        img: "imgs/gornation-metal-parallettes-1.webp",
         nazva: "Metal Parallettes",
         category: "Equipment",
         count: 15,
@@ -32,7 +32,7 @@ let tovars = [
     },
     {
         id: "0",
-        img: "/imgs/calisthenics-mesh-shirt-black-front-view.webp",
+        img: "imgs/calisthenics-mesh-shirt-black-front-view.webp",
         nazva: "Mesh Shirt Men",
         category: "Men",
         count: 20,
@@ -41,7 +41,7 @@ let tovars = [
     },
     {
         id: "0",
-        img: "/imgs/shorts-taupe-front_53c4f31f-6a30-40c8-b235-d0823f30e7b4.webp",
+        img: "imgs/shorts-taupe-front_53c4f31f-6a30-40c8-b235-d0823f30e7b4.webp",
         nazva: "Rib Shorts Women",
         category: "Women",
         count: 10,
@@ -50,7 +50,7 @@ let tovars = [
     },
     {
         id: "0",
-        img: "/imgs/20kg-weight-vest-gornation-side-view_f594debd-77a0-4c6a-9266-132f70b26482.jpg",
+        img: "imgs/20kg-weight-vest-gornation-side-view_f594debd-77a0-4c6a-9266-132f70b26482.jpg",
         nazva: "Elite Weight Vest 20kg",
         category: "Equipment",
         count: 8,
@@ -59,7 +59,7 @@ let tovars = [
     },
     {
         id: "0",
-        img: "/imgs/jump-rope-gornation-1.webp",
+        img: "imgs/jump-rope-gornation-1.webp",
         nazva: "Jump Rope",
         category: "Accessories",
         count: 16,
@@ -68,7 +68,7 @@ let tovars = [
     },
     {
         id: "0",
-        img: "/imgs/gornation-liquid-chalk-200ml.webp",
+        img: "imgs/gornation-liquid-chalk-200ml.webp",
         nazva: "Premium Liquid Chalk",
         category: "Accessories",
         count: 29,
@@ -77,7 +77,7 @@ let tovars = [
     },
     {
         id: "0",
-        img: "/imgs/Performance-Wrist-Wraps-GORNATION-34941417-34941499-34941478.webp",
+        img: "imgs/Performance-Wrist-Wraps-GORNATION-34941417-34941499-34941478.webp",
         nazva: "Performance Wrist Wraps",
         category: "Accessories",
         count: 21,
@@ -86,7 +86,7 @@ let tovars = [
     },
     {
         id: "0",
-        img: "/imgs/baselayer-white-front-dynamic.webp",
+        img: "imgs/baselayer-white-front-dynamic.webp",
         nazva: "Performance Baselayer Men",
         category: "Men",
         count: 12,
@@ -95,7 +95,7 @@ let tovars = [
     },
     {
         id: "0",
-        img: "/imgs/bra-white-front.webp",
+        img: "imgs/bra-white-front.webp",
         nazva: "Rib Sports Bra Women",
         category: "Women",
         count: 12,
@@ -104,7 +104,7 @@ let tovars = [
     },
     {
         id: "0",
-        img: "/imgs/pull-up-bar-multi-4.webp",
+        img: "imgs/pull-up-bar-multi-4.webp",
         nazva: "Pull Up Bar Multi",
         category: "Equipment",
         count: 16,
@@ -113,7 +113,7 @@ let tovars = [
     },
     {
         id: "0",
-        img: "/imgs/1-gornation-static-bar.webp",
+        img: "imgs/1-gornation-static-bar.webp",
         nazva: "Static Bar",
         category: "Equipment",
         count: 10,
@@ -122,7 +122,7 @@ let tovars = [
     },
     {
         id: "0",
-        img: "/imgs/abwheel-1.webp",
+        img: "imgs/abwheel-1.webp",
         nazva: "Ab Wheel",
         category: "Equipment",
         count: 24,
@@ -131,7 +131,7 @@ let tovars = [
     },
     {
         id: "0",
-        img: "/imgs/Workout-Grips-Leather-GORNATION-34966769-34966795-34966785.webp",
+        img: "imgs/Workout-Grips-Leather-GORNATION-34966769-34966795-34966785.webp",
         nazva: "Workout Grips Leather",
         category: "Accessories",
         count: 22,
@@ -140,7 +140,7 @@ let tovars = [
     },
     {
         id: "0",
-        img: "/imgs/softgriptape_bec474ac-621c-4089-93bd-abcdc45da81b.webp",
+        img: "imgs/softgriptape_bec474ac-621c-4089-93bd-abcdc45da81b.webp",
         nazva: "Soft Grip Tape",
         category: "Accessories",
         count: 36,
@@ -149,7 +149,7 @@ let tovars = [
     },
     {
         id: "0",
-        img: "/imgs/Performance-Baselayer-Black-2.webp",
+        img: "imgs/Performance-Baselayer-Black-2.webp",
         nazva: "Performance Baselayer Men",
         category: "Men",
         count: 16,
@@ -158,7 +158,7 @@ let tovars = [
     },
     {
         id: "0",
-        img: "/imgs/calisthenics-mesh-shirt-black-front-view-woman.webp",
+        img: "imgs/calisthenics-mesh-shirt-black-front-view-woman.webp",
         nazva: "Mesh Shirt Women",
         category: "Women",
         count: 12,
@@ -200,8 +200,8 @@ function showProducts(whatToShow) {
         product.classList.add('product')
         products.appendChild(product);
         product.innerHTML = `
-                <div class="img"><img src=${tovar.img} alt=""></div>
-                <div class="addToBag"><img src="/imgs/IconsAndLogo/Add to Bag.png" alt=""></div>
+                <div class="img"><img src="${tovar.img.startsWith('data:') ? tovar.img : tovar.img.replace(/^\//, '')}" alt=""></div>
+                <div class="addToBag"><img src="imgs/IconsAndLogo/Add-to-Bag.png" alt=""></div>
                 <div class="nameProduct">${tovar.nazva}</div>
                 <div class="countProduct">Amount: ${tovar.count}</div>
                 <div class="priceProduct">$${tovar.prise}</div>
@@ -214,7 +214,7 @@ function showProducts(whatToShow) {
 
         product.addEventListener("click", () => {
             localStorage.setItem("selectedProduct", JSON.stringify(tovar));
-            window.location.href = "/product/product.html";
+            window.location.href = "product/product.html";
         });
     });
     countItemsDisplay.textContent = `${CountItems} Items`

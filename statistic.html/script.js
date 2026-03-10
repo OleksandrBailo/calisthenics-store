@@ -1,6 +1,6 @@
 let logo = document.querySelector('.logo')
 logo.addEventListener("click", () => {
-    window.location.href = '/index.html';
+    window.location.href = '../index.html';
 });
 window.addEventListener('load', () => {
     updateCartQuantity();
@@ -66,7 +66,11 @@ function renderChart(type) {
 }
 
 // Початковий графік (гістограма)
-renderChart('bar');
+if (history.length === 0) {
+    document.querySelector('.ChartBox').innerHTML = "<h2>No sales data yet!</h2>";
+} else {
+    renderChart('bar');
+}
 
 // Додаємо функціонал для кнопок
 document.getElementById('lineChartBtn').addEventListener('click', () => renderChart('line'));

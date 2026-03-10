@@ -7,12 +7,12 @@ window.addEventListener('load', () => {
 
 let logo = document.querySelector('.logo')
 logo.addEventListener("click", () => {
-    window.location.href = '/index.html';
+    window.location.href = '../index.html';
 });
 
 let emptyBagButton = document.querySelector(".emptyBagButton");
 emptyBagButton.addEventListener("click", () => {
-    window.location.href = '/index.html';
+    window.location.href = '../index.html';
 });
 let emptyBag = document.querySelector(".emptyBag");
 let confirmationModal = document.getElementById("confirmationModal");
@@ -35,8 +35,9 @@ function showProductsBag(whatToShow) {
         product.setAttribute('data-id', tovar.id);
         product.classList.add('product');
         products.appendChild(product);
+        let imgSrc = tovar.img.startsWith('data:') ? tovar.img : '../' + tovar.img;
         product.innerHTML = `
-        <div class="img"><img src=${tovar.img} alt=""></div>
+        <div class="img"><img src=${imgSrc} alt=""></div>
         <div class="detail">
             <div class="topDetail">
                 <div class="namePrice">
@@ -49,7 +50,7 @@ function showProductsBag(whatToShow) {
                 <div class="dropdown">
                     <button class="dropdown-button">
                         <span class="selected-option">${tovar.howManyWantBuy}</span>
-                        <div class="arrow"><img class="arrow-img" src="/imgs/arrows-down.png" alt=""></div>
+                        <div class="arrow"><img class="arrow-img" src="../imgs/IconsAndLogo/arrows-down.png" alt=""></div>
                     </button>
                     <ul class="dropdown-menu">
                     </ul>
@@ -80,7 +81,7 @@ function showProductsBag(whatToShow) {
         let productImg = product.querySelector("img")
         productImg.addEventListener("click", () => {
             localStorage.setItem("selectedProduct", JSON.stringify(tovar));
-            window.location.href = "/product/product.html";
+            window.location.href = "../product/product.html";
         });
     });
 
@@ -311,7 +312,7 @@ function renderHistory() {
             <div class="history-products">
                 ${purchase.items.map(item => `
                     <div class="history-product">
-                        <div class="img"><img class="history-img" src=${item.img} alt="${item.nazva}" ></div>
+                        <div class="img"><img class="history-img" src=${item.img.startsWith('data:') ? item.img : '../' + item.img} alt="${item.nazva}" ></div>
                         <div class="history-details">
                             <div class="historyNamePrice">
                                 <div class="history-name">${item.nazva}</div>
